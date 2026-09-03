@@ -1,0 +1,29 @@
+# 二进制文件：禁止行尾转换（避免 PDF/DOCX/PNG 等被 CRLF 破坏）
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.doc binary
+
+# 源码统一 LF（Windows 检出可自动转 CRLF，仓库内保持 LF）
+* text=auto
+*.js text eol=lf
+*.json text eol=lf
+*.wxml text eol=lf
+*.wxss text eol=lf
+*.wxs text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.yml text eol=lf
+*.yml.ejs text eol=lf
+*.ts text eol=lf
+*.css text eol=lf

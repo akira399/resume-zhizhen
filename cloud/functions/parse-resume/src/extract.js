@@ -95,7 +95,11 @@ function extOf(nameOrPath) {
 }
 
 async function extractPdf(buffer) {
-  const data = await pdfParse(buffer)
+  // pdf-parse 内嵌的 pdf.js 对 Node Buffer 的兼容性随 Node 版本变化
+  //（Node 20/22 下直接传 Buffer 解析合法 PDF 会抛 "bad XRef entry"）。
+  // 显式转 Uint8Array 后各 Node 版本行为一致。云函数运行时版本不受我们控制，
+  // 这里做防御性转换，避免在低版本运行时解析 PDF 偶发失败。
+  const data = await pdfParse(new Uint8Array(buffer))
   return (data && data.text) || ''
 }
 
