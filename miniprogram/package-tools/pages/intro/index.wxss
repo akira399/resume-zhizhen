@@ -1,0 +1,80 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+.form-head,
+.result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.sample-link,
+.copy-btn {
+  font-size: 24rpx;
+  color: var(--color-primary);
+  padding: 8rpx 16rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-primary-subtle);
+}
+
+.field {
+  margin-top: 24rpx;
+}
+
+.field-label {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10rpx;
+}
+
+.field-input {
+  height: 76rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+/* 时长 */
+.duration-row {
+  display: flex;
+  margin-top: 16rpx;
+  gap: 16rpx;
+}
+
+.duration-chip {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  border-radius: 14rpx;
+  background: var(--color-bg-page);
+  color: var(--color-text-secondary);
+  font-size: 28rpx;
+}
+
+.duration-on {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx var(--shadow-cta);
+}
+
+.gen-btn {
+  margin-top: 24rpx;
+}
+
+/* 结果 */
+.result-text {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  line-height: 1.8;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}

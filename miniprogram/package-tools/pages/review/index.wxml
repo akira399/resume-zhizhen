@@ -1,0 +1,88 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">面试复盘</text>
+    <text class="hero-mini-sub">每次面试后记录 10 分钟，下次面更好</text>
+  </view>
+
+  <!-- 统计卡 -->
+  <view wx:if="{{stats}}" class="card stats-card">
+    <view class="stats-grid">
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.count}}</text>
+        <text class="stat-label">复盘次数</text>
+      </view>
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.avgRating === null ? '—' : stats.avgRating}}</text>
+        <text class="stat-label">平均评分</text>
+      </view>
+    </view>
+
+    <view wx:if="{{stats.topQuestions.length}}" class="top-block">
+      <text class="top-title">被问最多的问题</text>
+      <view class="chip-wrap">
+        <view class="chip" wx:for="{{stats.topQuestions}}" wx:key="text">
+          <text class="chip-text">{{item.text}}</text>
+          <text class="chip-count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{stats.topFails.length}}" class="top-block">
+      <text class="top-title warn-title">最需改进</text>
+      <view class="chip-wrap">
+        <view class="chip chip-warn" wx:for="{{stats.topFails}}" wx:key="text">
+          <text class="chip-text">{{item.text}}</text>
+          <text class="chip-count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view wx:if="{{!empty}}" class="review-list">
+    <view class="card review-card" wx:for="{{reviews}}" wx:key="id">
+      <view class="review-head" bindtap="goEdit" data-id="{{item.id}}">
+        <view class="review-main">
+          <text class="review-company">{{item.company}}</text>
+          <text class="review-position">{{item.position}} · {{item.round}}</text>
+        </view>
+        <view class="review-stars">
+          <text class="star {{s.on ? 'star-on' : ''}}" wx:for="{{item.stars}}" wx:for-item="s" wx:key="index">★</text>
+        </view>
+      </view>
+
+      <view class="review-meta" bindtap="goEdit" data-id="{{item.id}}">
+        <text class="meta-chip">问题 {{item.questions.length}}</text>
+        <text class="meta-chip">没答好 {{item.fails.length}}</text>
+        <text class="meta-chip">亮点 {{item.wins.length}}</text>
+        <text class="meta-date">{{item.dateText}}</text>
+      </view>
+
+      <view wx:if="{{item.notes}}" class="review-notes" bindtap="goEdit" data-id="{{item.id}}">
+        <text class="notes-text">{{item.notes}}</text>
+      </view>
+
+      <view class="review-actions">
+        <text class="action-del" catchtap="onRemove" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <text class="empty-title">加载中…</text>
+  </view>
+  <view wx:elif="{{errMsg}}" class="empty">
+    <text class="empty-icon">⚠️</text>
+    <text class="empty-title">加载失败</text>
+    <text class="empty-desc">{{errMsg}}</text>
+    <button class="btn-primary empty-btn" bindtap="onRetry">重新加载</button>
+  </view>
+  <view wx:elif="{{empty}}" class="empty">
+    <text class="empty-icon">📝</text>
+    <text class="empty-title">还没有复盘</text>
+    <text class="empty-desc">面试完趁热打铁记一笔：被问了什么、哪里没答好，下次直接对着练</text>
+    <button class="btn-primary empty-btn" bindtap="goAdd">写第一篇复盘</button>
+  </view>
+</view>

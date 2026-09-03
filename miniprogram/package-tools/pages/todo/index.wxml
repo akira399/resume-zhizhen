@@ -1,0 +1,96 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">待办清单</text>
+    <text class="hero-mini-sub">记下下一步行动，别让机会从指尖溜走</text>
+  </view>
+
+  <!-- 统计 -->
+  <view wx:if="{{stats}}" class="card stats-card">
+    <view class="stats-grid">
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.pending}}</text>
+        <text class="stat-label">待办</text>
+      </view>
+      <view class="stat-cell">
+        <text class="stat-num {{stats.overdue ? 'stat-overdue' : ''}}">{{stats.overdue}}</text>
+        <text class="stat-label">已过期</text>
+      </view>
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.doneRate}}%</text>
+        <text class="stat-label">完成率</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新增 -->
+  <view class="card">
+    <view class="add-row">
+      <input
+        class="add-input"
+        value="{{text}}"
+        placeholder="下一步要做什么？如：3 天内跟进 HR"
+        maxlength="50"
+        confirm-type="done"
+        bindinput="onTextInput"
+        bindconfirm="onAdd"
+      />
+      <button class="btn-primary add-btn" bindtap="onAdd">添加</button>
+    </view>
+
+    <view class="add-opts">
+      <picker mode="date" value="{{dueDate}}" bindchange="onDateChange">
+        <view class="opt-chip {{dueDate ? 'opt-on' : ''}}">
+          {{dueDate || '无截止日'}}<text wx:if="{{dueDate}}" class="opt-x" catchtap="onClearDate">✕</text>
+        </view>
+      </picker>
+      <text
+        wx:for="{{priorities}}"
+        wx:key="key"
+        class="opt-chip { item.label === '高' ? 'prio-hi' : item.label === '低' ? 'prio-low' : '' }} {{item.active ? 'opt-on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onPriority"
+      >{{item.label}}优</text>
+    </view>
+  </view>
+
+  <!-- 待办列表 -->
+  <view wx:if="{{!empty}}" class="todo-list">
+    <view wx:if="{{pending.length}}" class="group-head">
+      <text class="group-title">进行中</text>
+    </view>
+    <view class="card todo-item" wx:for="{{pending}}" wx:key="id">
+      <view class="check-circle" data-id="{{item.id}}" bindtap="onToggle"></view>
+      <view class="todo-body" data-id="{{item.id}}" bindtap="onToggle">
+        <text class="todo-text">{{item.text}}</text>
+        <view class="todo-meta">
+          <text class="tag-prio { item.priorityLabel === '高' ? 'prio-hi' : item.priorityLabel === '低' ? 'prio-low' : '' }}">{{item.priorityLabel}}优</text>
+          <text wx:if="{{item.dueText}}" class="tag-due {{item.overdue ? 'tag-overdue' : ''}}">
+            {{item.overdue ? '已过期 · ' : ''}}{{item.dueText}}
+          </text>
+        </view>
+      </view>
+      <text class="todo-del" data-id="{{item.id}}" catchtap="onRemove">删除</text>
+    </view>
+
+    <view wx:if="{{done.length}}" class="group-head done-head">
+      <text class="group-title">已完成</text>
+      <text class="clear-done" bindtap="onClearDone">清空</text>
+    </view>
+    <view class="card todo-item todo-done" wx:for="{{done}}" wx:key="id">
+      <view class="check-circle check-on" data-id="{{item.id}}" bindtap="onToggle">✓</view>
+      <view class="todo-body" data-id="{{item.id}}" bindtap="onToggle">
+        <text class="todo-text done-text">{{item.text}}</text>
+      </view>
+      <text class="todo-del" data-id="{{item.id}}" catchtap="onRemove">删除</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view wx:if="{{empty}}" class="empty">
+    <text class="empty-icon">✅</text>
+    <text class="empty-title">暂无待办</text>
+    <text class="empty-desc">把"下一步行动"记下来，比如：补投 5 家、准备二面、跟进 HR</text>
+  </view>
+</view>

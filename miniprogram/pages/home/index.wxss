@@ -1,0 +1,369 @@
+.home {
+  padding-bottom: 40rpx;
+}
+
+/* 上次启动异常：非阻断横幅 */
+.boot-banner {
+  margin: 24rpx 24rpx 0;
+  padding: 24rpx;
+  background: var(--color-error-subtle);
+  border-radius: 16rpx;
+}
+
+.boot-banner-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-error);
+  margin-bottom: 12rpx;
+}
+
+.boot-banner-msg {
+  display: block;
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  word-break: break-all;
+  margin-bottom: 16rpx;
+}
+
+.boot-banner-actions {
+  display: flex;
+}
+
+.btn-mini {
+  margin: 0 16rpx 0 0;
+  padding: 0 24rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border-radius: 8rpx;
+}
+
+.btn-mini::after {
+  border: none;
+}
+
+/* ---------- 品牌渐变 Hero ---------- */
+
+/*
+ * 全宽渐变区，底部大圆角收进页面底色。
+ * 入场复用全局 card-in 关键帧（app.wxss），时长用 slow 档——
+ * hero 是首屏第一眼，比卡片多留一点入场时间更有「展开感」。
+ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 56rpx 40rpx 40rpx;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-gradient-end) 100%
+  );
+  border-radius: 0 0 36rpx 36rpx;
+  animation: card-in var(--duration-slow) var(--ease-out) backwards;
+}
+
+/* 装饰光斑：半透明白圆制造渐变上的层次，纯 CSS 零包体 */
+.hero-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.hero-deco-a {
+  width: 320rpx;
+  height: 320rpx;
+  top: -140rpx;
+  right: -90rpx;
+}
+
+.hero-deco-b {
+  width: 220rpx;
+  height: 220rpx;
+  bottom: -80rpx;
+  left: -70rpx;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hero-title {
+  position: relative;
+  display: block;
+  font-size: 52rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: var(--color-surface);
+}
+
+.hero-sub {
+  position: relative;
+  display: block;
+  margin-top: 14rpx;
+  font-size: 27rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 校招节点倒计时（F10）：比副标题更弱一层，不抢 CTA 的视觉焦点 */
+.hero-recruit {
+  position: relative;
+  display: inline-block;
+  margin-top: 18rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 999rpx;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* 主 CTA：白底主色字，在渐变上形成最强对比 */
+.hero-cta {
+  position: relative;
+  margin: 40rpx 0 0;
+  padding: 0;
+  width: 100%;
+  height: 92rpx;
+  line-height: 92rpx;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 46rpx;
+  box-shadow: 0 8rpx 24rpx rgba(31, 35, 41, 0.14);
+}
+
+.hero-cta::after {
+  border: none;
+}
+
+/* 额度胶囊 + 示例入口：hero 的次级信息行 */
+.hero-meta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 28rpx;
+}
+
+.quota-pill {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 10rpx 24rpx;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 32rpx;
+}
+
+.quota-pill-text {
+  font-size: 23rpx;
+  color: var(--color-surface);
+}
+
+/* 登录失败态（P2-1）：渐变上红字不可读，翻成白底红字胶囊 */
+.quota-pill-error {
+  background: var(--color-surface);
+}
+
+.quota-pill-error .quota-pill-text {
+  color: var(--color-error);
+}
+
+.quota-retry {
+  margin-left: 16rpx;
+  padding: 0 20rpx;
+  height: 44rpx;
+  line-height: 42rpx;
+  font-size: 22rpx;
+  color: var(--color-error);
+  border: 1rpx solid var(--color-error);
+  border-radius: 22rpx;
+  background: transparent;
+}
+
+.quota-retry::after {
+  border: none;
+}
+
+.hero-demo-link {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ---------- 工具箱 ---------- */
+
+.section-head {
+  margin: 40rpx 40rpx 20rpx;
+}
+
+/*
+ * 功能大卡：图标容器 + 文案主体。
+ * 图标底色按功能区分（诊断=品牌蓝、JD=琥珀），扫一眼就能定位入口。
+ */
+.feature {
+  display: flex;
+  align-items: center;
+}
+
+.feature-icon {
+  flex: none;
+  width: 88rpx;
+  height: 88rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  background: var(--color-primary-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44rpx;
+}
+
+.feature-icon-jd {
+  background: var(--color-warning-subtle);
+}
+
+.feature-icon-qbank {
+  background: var(--color-success-subtle, rgba(34, 160, 90, 0.12));
+}
+
+.feature-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.feature-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.feature-name {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.feature-arrow {
+  color: var(--color-border-placeholder);
+  font-size: 36rpx;
+}
+
+.feature-desc {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+/* ---------- 次级入口：Tab 页快捷直达 ---------- */
+
+.quick-row {
+  display: flex;
+  margin-top: 4rpx;
+}
+
+.quick {
+  flex: 1;
+  min-width: 0;
+}
+
+/* gap 在部分低端安卓 WebView 上不可靠，用相邻 margin 实现间距 */
+.quick + .quick {
+  margin-left: 20rpx;
+}
+
+/* quick-row 内第二张卡错开入场，与全局 stagger 节奏一致 */
+.quick:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+.quick-icon {
+  display: block;
+  font-size: 40rpx;
+}
+
+.quick-name {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.quick-desc {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* view 的按压态：hover-class="press"，反馈与全局 button-hover 一致 */
+.press {
+  opacity: 0.85;
+}
+
+/* ---------- 隐私协议弹窗 ---------- */
+
+.privacy-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.privacy-dialog {
+  width: 600rpx;
+  background: var(--color-surface);
+  border-radius: 20rpx;
+  padding: 40rpx 36rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.privacy-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+
+.privacy-body {
+  display: block;
+  font-size: 27rpx;
+  color: var(--color-text);
+  line-height: 1.7;
+  margin-bottom: 16rpx;
+}
+
+.privacy-list {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  line-height: 1.8;
+  margin-bottom: 32rpx;
+}
+
+.privacy-dialog .btn-primary {
+  margin: 0;
+}
+
+.btn-link {
+  margin: 20rpx 0 0;
+  padding: 0;
+  font-size: 25rpx;
+  color: var(--color-text-tertiary);
+  background: transparent;
+  line-height: 1.6;
+}
+
+.btn-link::after {
+  border: none;
+}

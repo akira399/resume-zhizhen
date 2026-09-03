@@ -1,0 +1,158 @@
+<view class="board-page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">求职看板</text>
+    <text class="hero-mini-sub">投递进度一目了然，面试日程自动置顶</text>
+  </view>
+
+  <!-- 加载态：首屏拉取期间给占位，不闪空列 -->
+  <view wx:if="{{!loaded}}" class="board-loading">
+    <text class="board-loading-text">加载中…</text>
+  </view>
+
+  <!-- 错误态：与空态互斥。此前失败会命中空态分支，误导用户「记录全丢了」 -->
+  <view wx:elif="{{errMsg}}" class="board-error">
+    <text class="board-error-icon">⚠️</text>
+    <text class="board-error-title">看板加载失败</text>
+    <text class="board-error-desc">{{errMsg}}</text>
+    <button class="btn-primary board-retry" bindtap="onRetryLoad">重新加载</button>
+  </view>
+
+  <!-- 空态：第一次进来给方向，不给白板 -->
+  <view wx:elif="{{total === 0}}" class="empty">
+    <text class="empty-icon">🧭</text>
+    <text class="empty-title">还没有投递记录</text>
+    <text class="empty-desc">记录每一次投递，进度一目了然；面试日程会自动置顶提醒</text>
+    <button class="btn-primary" bindtap="onAdd">记一笔投递</button>
+
+    <!-- 演示数据（P1-7）：0 记录也能看到看板完整形态 -->
+    <button class="btn-ghost demo-seed-btn" disabled="{{demoBusy}}" bindtap="onSeedDemo">
+      {{demoBusy ? '填充中…' : '一键填充演示数据'}}
+    </button>
+    <text class="demo-hint">演示数据可随时清除，不影响真实记录</text>
+  </view>
+
+  <block wx:else>
+    <!-- 搜索 + 归档切换（M4） -->
+    <view class="toolbar">
+      <view class="search-box">
+        <text class="search-icon">🔍</text>
+        <input
+          class="search-input"
+          value="{{keyword}}"
+          placeholder="搜索公司 / 岗位"
+          confirm-type="search"
+          bindinput="onSearch"
+        />
+        <text wx:if="{{keyword}}" class="search-clear" bindtap="onClearSearch">×</text>
+      </view>
+      <view class="arch-tabs">
+        <text class="arch-tab {{!showArchived ? 'arch-tab-active' : ''}}" data-show="0" bindtap="onToggleArchivedView">进行中</text>
+        <text class="arch-tab {{showArchived ? 'arch-tab-active' : ''}}" data-show="1" bindtap="onToggleArchivedView">已归档</text>
+        <text class="stats-link" bindtap="goStats">📊 数据</text>
+      </view>
+    </view>
+
+    <!-- 概览 -->
+    <view wx:if="{{total > 0}}" class="stats">
+      <view class="stat">
+        <text class="stat-num">{{total}}</text>
+        <text class="stat-label">总投递</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num">{{counts.interviewing}}</text>
+        <text class="stat-label">面试中</text>
+      </view>
+      <view class="stat">
+        <text class="stat-num">{{counts.offer}}</text>
+        <text class="stat-label">Offer</text>
+      </view>
+    </view>
+
+    <!-- 投递漏斗（F10）：投递 → 笔试 → 面试 → Offer 的转化比例 -->
+    <view class="funnel">
+      <view class="sec-head">
+        <text class="sec-title">投递漏斗</text>
+        <text class="sec-hint">每 100 次投递的转化</text>
+      </view>
+      <view wx:for="{{funnel}}" wx:key="key" class="funnel-row">
+        <text class="funnel-label">{{item.label}}</text>
+        <view class="funnel-track">
+          <view class="funnel-bar funnel-bar-{{item.key}}" style="width: {{item.barPct}}%"></view>
+        </view>
+        <text class="funnel-num">{{item.count}}</text>
+        <text class="funnel-pct">{{item.pct}}%</text>
+      </view>
+    </view>
+
+    <!-- 日程区：未来 14 天，今天高亮 -->
+    <view wx:if="{{events.length > 0}}" class="events">
+      <view class="sec-head">
+        <text class="sec-title">近期日程</text>
+        <text class="sec-hint">未来 14 天</text>
+      </view>
+      <view
+        wx:for="{{events}}"
+        wx:key="id"
+        class="event {{item.isToday ? 'event-today' : ''}}"
+        data-id="{{item.id}}"
+        bindtap="onEdit"
+      >
+        <view class="event-badge event-badge-{{item.type}}">{{item.typeLabel}}</view>
+        <view class="event-main">
+          <text class="event-company">{{item.company}} · {{item.position}}</text>
+          <text class="event-time">{{item.date}} {{item.time}}{{item.isToday ? ' · 今天' : ''}}</text>
+        </view>
+        <text wx:if="{{item.remindOn}}" class="event-remind">🔔</text>
+        <text class="event-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 状态看板：横向分组 -->
+    <scroll-view class="columns" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="columns-inner">
+        <view wx:for="{{groups}}" wx:key="key" wx:for-item="group" class="column">
+          <view class="col-head">
+            <text class="col-title">{{group.label}}</text>
+            <text class="col-count">{{group.items.length}}</text>
+          </view>
+
+          <view
+            wx:for="{{group.items}}"
+            wx:key="id"
+            wx:for-item="card"
+            class="kan-card"
+            data-id="{{card.id}}"
+            bindtap="onEdit"
+          >
+            <text class="card-company">{{card.company}}</text>
+            <text class="card-position">{{card.position}}</text>
+            <view wx:if="{{card.nextEvent || card.resumeVersion}}" class="card-chips">
+              <view wx:if="{{card.nextEvent}}" class="chip chip-event">
+                {{card.nextEvent.type === 'written' ? '笔试' : '面试'}} {{card.nextEvent.date}}
+              </view>
+              <view wx:if="{{card.resumeVersion}}" class="chip">{{card.resumeVersion}}</view>
+            </view>
+            <view wx:if="{{card.tags.length > 0}}" class="card-tags">
+              <text wx:for="{{card.tags}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+            </view>
+            <view class="card-op">
+              <text catchtap="onArchive" data-id="{{card.id}}">{{card.archived ? '恢复' : '归档'}}</text>
+            </view>
+          </view>
+
+          <view wx:if="{{group.items.length === 0}}" class="col-empty">暂无记录</view>
+        </view>
+      </view>
+    </scroll-view>
+  </block>
+
+  <!-- 演示数据清除入口：仅当看板里存在演示记录时出现 -->
+  <view wx:if="{{hasDemo}}" class="demo-clear">
+    <text class="demo-clear-link" bindtap="onClearDemo">清除演示数据</text>
+  </view>
+
+  <!-- 新增入口：有记录时悬浮，空态时在空态卡里 -->
+  <view wx:if="{{total > 0}}" class="fab" bindtap="onAdd">＋</view>
+</view>

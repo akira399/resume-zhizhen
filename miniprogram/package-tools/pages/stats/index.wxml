@@ -1,0 +1,117 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">求职数据</text>
+    <text class="hero-mini-sub">投了多少、转化如何，一眼看清</text>
+  </view>
+
+  <!-- 加载态 -->
+  <view wx:if="{{loading}}" class="card center">
+    <text class="placeholder">加载中…</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view wx:elif="{{errMsg}}" class="card center">
+    <text class="state-icon">⚠️</text>
+    <text class="err-msg">{{errMsg}}</text>
+    <button class="btn-ghost retry-btn" bindtap="onRetry">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <!-- 校招倒计时 -->
+    <view wx:if="{{recruitText}}" class="card recruit-card">
+      <text class="recruit-text">{{recruitText}}</text>
+    </view>
+
+    <!-- 空态 -->
+    <view wx:if="{{total === 0}}" class="card center empty-card">
+      <text class="empty-icon">📊</text>
+      <text class="empty-title">还没有投递数据</text>
+      <text class="empty-desc">记几笔投递，这里会自动生成趋势与转化分析</text>
+      <button class="btn-primary" bindtap="goKanban">去管理投递</button>
+    </view>
+
+    <block wx:else>
+      <!-- 总览 -->
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-num">{{total}}</text>
+          <text class="stat-label">总投递</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{offerCount}}</text>
+          <text class="stat-label">Offer</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num">{{conversion}}%</text>
+          <text class="stat-label">Offer 转化率</text>
+        </view>
+      </view>
+
+      <!-- 状态占比 -->
+      <view class="card">
+        <text class="card-title">投递状态分布</text>
+        <view wx:for="{{statusCounts}}" wx:key="key" class="bar-row">
+          <text class="bar-label">{{item.label}}</text>
+          <view class="bar-track">
+            <view class="bar-inner" style="width: {{item.pct}}%"></view>
+          </view>
+          <text class="bar-num">{{item.count}}</text>
+          <text class="bar-pct">{{item.pct}}%</text>
+        </view>
+      </view>
+
+      <!-- 投递趋势：近 8 周 -->
+      <view class="card">
+        <view class="card-head">
+          <text class="card-title">近 8 周投递趋势</text>
+          <text class="card-hint">每周投递数</text>
+        </view>
+        <view class="trend">
+          <view wx:for="{{weekly}}" wx:key="index" class="trend-col">
+            <view class="trend-bar-wrap">
+              <view class="trend-bar" style="height: {{item.h}}%"></view>
+            </view>
+            <text class="trend-count">{{item.count}}</text>
+            <text class="trend-label">{{item.label}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 漏斗 -->
+      <view class="card">
+        <text class="card-title">投递漏斗</text>
+        <view wx:for="{{funnel}}" wx:key="key" class="funnel-row">
+          <text class="funnel-label">{{item.label}}</text>
+          <view class="funnel-track">
+            <view class="funnel-bar" style="width: {{item.barPct}}%"></view>
+          </view>
+          <text class="funnel-num">{{item.count}}</text>
+          <text class="funnel-pct">{{item.pct}}%</text>
+        </view>
+      </view>
+
+      <!-- 渠道效果 -->
+      <view wx:if="{{channels.length > 0}}" class="card">
+        <text class="card-title">渠道效果</text>
+        <view wx:for="{{channels}}" wx:key="source" class="channel-row">
+          <text class="channel-name">{{item.source}}</text>
+          <text class="channel-total">{{item.total}} 投递</text>
+          <text class="channel-offer">{{item.offer}} Offer</text>
+          <text class="channel-rate">{{item.rate}}%</text>
+        </view>
+      </view>
+
+      <!-- M10：投递时间线入口 -->
+      <view class="card tl-entry" hover-class="press" bindtap="goTimeline">
+        <view class="tl-entry-icon">🗓️</view>
+        <view class="tl-entry-body">
+          <text class="tl-entry-name">投递时间线</text>
+          <text class="tl-entry-desc">按周/月看投递节奏 · 每周目标完成度一目了然</text>
+        </view>
+        <text class="tl-entry-arrow">›</text>
+      </view>
+    </block>
+  </block>
+</view>

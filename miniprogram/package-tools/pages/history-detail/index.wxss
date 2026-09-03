@@ -1,0 +1,201 @@
+/**
+ * 历史详情页样式。
+ *
+ * 继承 result.wxss（卡片/评分/关键词/三态）与两个结果页的列表样式，
+ * 因此一个页面能同时渲染诊断的「逐条建议」和匹配的「补强建议」两种版式，
+ * 而不用为每种业务各写一个详情页。
+ */
+
+@import '../../../styles/result.wxss';
+
+/* ---------- 逐条建议（诊断）---------- */
+
+.item {
+  padding: 24rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.item:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.item-section {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.line {
+  display: flex;
+  margin-bottom: 12rpx;
+}
+
+.line:last-child {
+  margin-bottom: 0;
+}
+
+.line-label {
+  flex: none;
+  width: 76rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  line-height: 1.7;
+}
+
+.line-text {
+  flex: 1;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+  word-break: break-all;
+}
+
+.line-old {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.line-new {
+  color: var(--color-text);
+}
+
+.line-muted {
+  color: var(--color-text-secondary);
+  font-size: 25rpx;
+}
+
+/* ---------- 补强建议（JD 匹配）---------- */
+
+.suggestion {
+  display: flex;
+  padding: 20rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.suggestion:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.suggestion-index {
+  flex: none;
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 16rpx;
+  border-radius: 50%;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 24rpx;
+  font-weight: 600;
+  text-align: center;
+  line-height: 44rpx;
+}
+
+.suggestion-text {
+  flex: 1;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* ---------- 输入原文 ---------- */
+
+/* 多块原文之间加分隔线；只有一块时不显示 */
+.source + .source {
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.source-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* card-title 自带下边距，作为行内标题时要去掉，否则与右侧「展开」不对齐 */
+.source-title {
+  margin-bottom: 0;
+}
+
+.source-toggle {
+  font-size: 24rpx;
+  color: var(--color-primary);
+}
+
+.source-brief,
+.source-full {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 25rpx;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  word-break: break-all;
+}
+
+/* ---------- 操作区 ---------- */
+
+.retry-btn {
+  width: 320rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  font-size: 28rpx;
+}
+
+.btn-delete {
+  margin-top: 20rpx;
+  color: var(--color-error);
+}
+
+/* ---------- 维度得分条（简历自查）---------- */
+
+.dim-row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.dim-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.dim-label {
+  flex: none;
+  width: 160rpx;
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+
+.dim-bar {
+  flex: 1;
+  height: 16rpx;
+  margin: 0 20rpx;
+  border-radius: 8rpx;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.dim-bar-inner {
+  height: 100%;
+  border-radius: 8rpx;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-gradient-end));
+}
+
+.dim-score {
+  flex: none;
+  width: 64rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: right;
+}

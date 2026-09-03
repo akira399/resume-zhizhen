@@ -1,0 +1,9 @@
+{
+  "name": "parse-resume",
+  "version": "0.1.0",
+  "description": "解析用户上传的简历附件（PDF/DOCX/TXT）为纯文本，解析后立即删除云端文件，不留档",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

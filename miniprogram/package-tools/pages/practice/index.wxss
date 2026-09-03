@@ -1,0 +1,278 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* ---------- 配置态 ---------- */
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20rpx;
+}
+
+.chip {
+  padding: 10rpx 28rpx;
+  margin: 0 16rpx 16rpx 0;
+  border-radius: 32rpx;
+  background: var(--color-bg-page);
+  border: 1rpx solid var(--color-border-strong);
+  color: var(--color-text-secondary);
+  font-size: 26rpx;
+}
+
+.chip-active {
+  background: var(--color-primary-subtle);
+  border-color: var(--color-primary-border);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* ---------- 答题态 ---------- */
+
+.q-tag {
+  display: inline-block;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 22rpx;
+  margin-bottom: 16rpx;
+}
+
+.q-text {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.timer-card {
+  text-align: center;
+}
+
+.timer-num {
+  display: inline-block;
+  font-size: 88rpx;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  line-height: 1;
+}
+
+.timer-running {
+  color: var(--color-primary);
+}
+
+.timer-unit {
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+  margin-left: 8rpx;
+}
+
+.timer-btn {
+  width: 320rpx;
+  margin: 24rpx auto 0;
+}
+
+.timer-done {
+  font-size: 28rpx;
+  color: var(--color-success);
+}
+
+.answer-text {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+/* 三维度自评 */
+.dim-row {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.dim-row:first-child {
+  border-top: none;
+}
+
+.dim-label {
+  flex: none;
+  width: 140rpx;
+  font-size: 27rpx;
+  color: var(--color-text);
+}
+
+.stars {
+  flex: 1;
+  display: flex;
+}
+
+.star {
+  font-size: 44rpx;
+  color: var(--color-border-strong);
+  margin-right: 12rpx;
+}
+
+.star-on {
+  color: var(--color-warning-bright);
+}
+
+.stars-static {
+  align-items: center;
+}
+
+.dim-score {
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  width: 80rpx;
+  text-align: right;
+}
+
+.note-input {
+  width: 100%;
+  height: 96rpx;
+  margin-top: 16rpx;
+  padding: 16rpx 20rpx;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 25rpx;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* 文字作答区：比一句话备注更高，够写回答要点 */
+.answer-area {
+  height: 220rpx;
+}
+
+/* 我的回答对照 */
+.mine-card {
+  border-left: 6rpx solid var(--color-success);
+}
+
+.mine-text {
+  display: block;
+  margin-top: 12rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  background: var(--color-success-subtle);
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+/* ---------- 小结态 ---------- */
+
+.result-card {
+  margin-top: 32rpx;
+}
+
+.result-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.result-label {
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+}
+
+.result-score {
+  font-size: 72rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.result-unit {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+.result-summary {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.round-row {
+  padding: 20rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.round-row:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.round-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.round-title {
+  flex: 1;
+  font-size: 27rpx;
+  color: var(--color-text);
+  margin-right: 16rpx;
+}
+
+.round-score {
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+}
+
+.round-note {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.note-line {
+  display: flex;
+  padding: 8rpx 0;
+}
+
+.note-index {
+  flex: none;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 12rpx;
+  border-radius: 50%;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 22rpx;
+  font-weight: 600;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.note-text {
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- 操作区 ---------- */
+
+.actions {
+  margin: 40rpx 24rpx 0;
+}
+
+.action-btn {
+  margin-bottom: 20rpx;
+}

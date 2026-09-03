@@ -1,0 +1,67 @@
+<view class="history">
+  <!-- 筛选：全部 / 简历自查 / 岗位比对 / 面试练习 -->
+  <view class="tabs">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="key"
+      class="tab {{item.key === activeTab ? 'tab-active' : ''}}"
+      data-key="{{item.key}}"
+      bindtap="onSwitchTab"
+    >{{item.label}}</view>
+  </view>
+
+  <!-- 加载中（仅首屏）：骨架卡片占位，比「加载中…」更有「内容将至」的预期；
+       翻页时用底部提示，不清空已加载内容 -->
+  <block wx:if="{{loading}}">
+    <view wx:for="{{[0, 1, 2]}}" wx:key="*this" class="card skeleton-card">
+      <view class="sk sk-line-title" />
+      <view class="sk" />
+      <view class="sk sk-line-short" />
+    </view>
+  </block>
+
+  <!-- 错误态 -->
+  <view wx:elif="{{errMsg}}" class="card center">
+    <text class="state-icon">⚠️</text>
+    <text class="err-msg">{{errMsg}}</text>
+    <button class="btn-ghost retry-btn" bindtap="reload">重新加载</button>
+  </view>
+
+  <!-- 空态：说明这是什么 + 给出创建入口 -->
+  <view wx:elif="{{items.length === 0}}" class="card center">
+    <text class="state-icon">📋</text>
+    <text class="empty-title">还没有任何记录</text>
+    <text class="empty-desc">简历自查、岗位比对、面试练习的结果都会自动留在这里，仅你本人可见</text>
+    <button class="btn-primary empty-btn" bindtap="goEmptyGuide">先去管理投递</button>
+  </view>
+
+  <block wx:else>
+    <view
+      wx:for="{{items}}"
+      wx:key="id"
+      class="card record"
+      data-index="{{index}}"
+      bindtap="onOpen"
+    >
+      <view class="record-head">
+        <text class="biz-tag biz-{{item.biz}}">{{item.bizLabel}}</text>
+        <text class="status status-{{item.status}}">{{item.statusLabel}}</text>
+        <text class="time">{{item.timeText}}</text>
+      </view>
+
+      <text wx:if="{{item.preview}}" class="preview">{{item.preview}}</text>
+      <text wx:else class="preview preview-empty">（无内容摘要）</text>
+
+      <view class="record-foot">
+        <text wx:if="{{item.hasScore}}" class="score">{{item.score}} 分</text>
+        <text class="delete" data-index="{{index}}" catchtap="onDelete">删除</text>
+      </view>
+    </view>
+
+    <view class="foot">
+      <text wx:if="{{loadingMore}}" class="foot-text">加载中…</text>
+      <text wx:elif="{{hasMore}}" class="foot-text">上拉加载更多</text>
+      <text wx:else class="foot-text">没有更多了</text>
+    </view>
+  </block>
+</view>

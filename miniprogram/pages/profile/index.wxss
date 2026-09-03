@@ -1,0 +1,43 @@
+/* 标题与数字同行：仪表盘式排版，数字右对齐更聚焦 */
+.quota-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.quota-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* 登录失败态（P2-1）：错误文案较长，缩小字号并标红 */
+.quota-value-error {
+  font-size: 28rpx;
+  color: var(--color-error);
+}
+
+.login-retry {
+  margin-top: 20rpx;
+  padding: 0 28rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  font-size: 24rpx;
+  color: var(--color-primary-dark);
+  border: 1rpx solid var(--color-primary-dark);
+  border-radius: 28rpx;
+  background: transparent;
+}
+
+.login-retry::after {
+  border: none;
+}
+
+/* 本地优先提示：弱化呈现，不抢视觉 */
+.local-tip {
+  margin: 32rpx 40rpx 0;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+  text-align: center;
+}

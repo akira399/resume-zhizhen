@@ -1,0 +1,87 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">投递时间线</text>
+    <text class="hero-mini-sub">看清投递节奏，目标完成度一目了然</text>
+  </view>
+
+  <!-- 每周目标 -->
+  <view class="card goal-card">
+    <view class="goal-row">
+      <view class="goal-body">
+        <text class="goal-title">每周投递目标</text>
+        <text wx:if="{{goal}}" class="goal-current">最近{{gran === 'week' ? '一周' : '一月'}}已投 {{current ? current.total : 0}} 家</text>
+        <text wx:else class="goal-current">设定目标，看自己有没有在稳定推进</text>
+      </view>
+      <view class="goal-input-wrap">
+        <input class="goal-input" type="number" value="{{goalText}}" placeholder="目标/周" bindinput="onGoalInput" />
+        <text class="goal-unit">家</text>
+      </view>
+      <button class="btn-primary goal-btn" bindtap="onGoalSave">保存</button>
+    </view>
+    <view wx:if="{{goal}}" class="goal-stats">
+      <view class="goal-stat">
+        <text class="goal-num {{avgPct >= 100 ? 'ok' : ''}}">{{avgPct === null ? '—' : avgPct + '%'}}</text>
+        <text class="goal-label">平均完成度</text>
+      </view>
+      <view class="goal-stat">
+        <text class="goal-num">{{hitWeeks}}</text>
+        <text class="goal-label">达标周期</text>
+      </view>
+      <view class="goal-stat">
+        <text class="goal-num">{{current ? current.total : 0}}</text>
+        <text class="goal-label">当前周期投递</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 粒度切换 -->
+  <view class="gran-tabs">
+    <view class="gran-tab {{gran === 'week' ? 'gran-on' : ''}}" data-gran="week" bindtap="onGranChange">按周</view>
+    <view class="gran-tab {{gran === 'month' ? 'gran-on' : ''}}" data-gran="month" bindtap="onGranChange">按月</view>
+  </view>
+
+  <!-- 时间线 -->
+  <view wx:if="{{!empty}}" class="tl-list">
+    <view class="card tl-card" wx:for="{{items}}" wx:key="key">
+      <view class="tl-head">
+        <view class="tl-period">
+          <text class="tl-label">{{item.label}}</text>
+          <text class="tl-range">{{item.range}}</text>
+        </view>
+        <view class="tl-count">
+          <text class="tl-total">{{item.total}}</text>
+          <text class="tl-total-unit">次投递</text>
+        </view>
+      </view>
+
+      <view class="tl-meta">
+        <text class="tl-chip">面试 {{item.interview}}</text>
+        <text class="tl-chip">Offer {{item.offer}}</text>
+        <text class="tl-chip">挂了 {{item.rejected}}</text>
+        <text wx:if="{{item.pctText}}" class="tl-pct {{item.hit ? 'pct-ok' : ''}}">{{item.pctText}}</text>
+      </view>
+
+      <view class="bar-track">
+        <view class="bar-fill {{item.hit ? 'bar-ok' : ''}}" style="width: {{item.barPct}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <text class="empty-title">加载中…</text>
+  </view>
+  <view wx:elif="{{errMsg}}" class="empty">
+    <text class="empty-icon">⚠️</text>
+    <text class="empty-title">加载失败</text>
+    <text class="empty-desc">{{errMsg}}</text>
+    <button class="btn-primary empty-btn" bindtap="onRetry">重新加载</button>
+  </view>
+  <view wx:elif="{{empty}}" class="empty">
+    <text class="empty-icon">📅</text>
+    <text class="empty-title">还没有投递记录</text>
+    <text class="empty-desc">在看板里记录投递后，这里会按周/月自动生成你的投递节奏时间线</text>
+    <button class="btn-primary empty-btn" bindtap="goKanban">去投递看板</button>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">自我介绍模板</text>
+    <text class="hero-mini-sub">填几个空，生成 1 分钟 / 3 分钟自我介绍</text>
+  </view>
+
+  <!-- 表单 -->
+  <view class="card">
+    <view class="form-head">
+      <text class="section-title">基本信息</text>
+      <text class="sample-link" bindtap="onFillSample">填入示例</text>
+    </view>
+    <view class="field" wx:for="{{fields}}" wx:key="key">
+      <text class="field-label">{{item.label}}</text>
+      <input
+        class="field-input"
+        value="{{form[item.key]}}"
+        placeholder="填写{{item.label}}"
+        maxlength="50"
+        data-key="{{item.key}}"
+        bindinput="onInput"
+      />
+    </view>
+  </view>
+
+  <!-- 时长 -->
+  <view class="card">
+    <text class="section-title">选择时长</text>
+    <view class="duration-row">
+      <text
+        wx:for="{{durations}}"
+        wx:key="key"
+        class="duration-chip {{duration === item.key ? 'duration-on' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onDuration"
+      >{{item.label}}</text>
+    </view>
+    <button class="btn-primary gen-btn" bindtap="onGenerate">生成自我介绍</button>
+  </view>
+
+  <!-- 结果 -->
+  <view wx:if="{{result}}" id="introResult" class="card">
+    <view class="result-head">
+      <text class="section-title">{{durationLabel}}版本</text>
+      <text class="copy-btn" bindtap="onCopy">复制</text>
+    </view>
+    <text class="result-text" user-select>{{result}}</text>
+  </view>
+</view>

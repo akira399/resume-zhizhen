@@ -1,0 +1,174 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">面试练习室</text>
+    <text class="hero-mini-sub">{{phase === 'setup' ? '抽题、计时、开口练' : phase === 'play' ? '第 ' + (index + 1) + ' / ' + rounds.length + ' 题' : '练习完成'}}</text>
+  </view>
+
+  <!-- ========== 配置态 ========== -->
+  <block wx:if="{{phase === 'setup'}}">
+    <view class="card">
+      <text class="section-title">练习范围（不选 = 全部）</text>
+      <view class="chip-row">
+        <text
+          wx:for="{{categories}}"
+          wx:key="key"
+          class="chip {{selected.indexOf(item.key) !== -1 ? 'chip-active' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="toggleCategory"
+        >{{item.icon}} {{item.name}}（{{item.total}}）</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">题目数量</text>
+      <view class="chip-row">
+        <text
+          wx:for="{{counts}}"
+          wx:key="*this"
+          class="chip {{count === item ? 'chip-active' : ''}}"
+          data-n="{{item}}"
+          bindtap="selectCount"
+        >{{item}} 题</text>
+      </view>
+    </view>
+
+    <view class="actions">
+      <button class="btn-primary action-btn" bindtap="start">开始练习</button>
+    </view>
+  </block>
+
+  <!-- ========== 答题态 ========== -->
+  <block wx:elif="{{phase === 'play'}}">
+    <view wx:if="{{current}}" class="card">
+      <view class="q-tag">{{current.category}}</view>
+      <text class="q-text">{{current.q}}</text>
+    </view>
+
+    <!-- 计时器 -->
+    <view class="card timer-card">
+      <block wx:if="{{!answerOpen}}">
+        <text class="timer-num {{timerRunning ? 'timer-running' : ''}}">{{remaining}}</text>
+        <text class="timer-unit">秒</text>
+        <button
+          wx:if="{{!timerRunning}}"
+          class="btn-primary timer-btn"
+          bindtap="startAnswer"
+        >开始作答（{{remaining}} 秒）</button>
+        <button wx:else class="btn-ghost timer-btn" bindtap="seeAnswer">提前看答案</button>
+      </block>
+      <block wx:else>
+        <text class="timer-done">已作答，对照参考答案自评</text>
+      </block>
+    </view>
+
+    <!-- 我的回答：作答期先写下要点，再对照参考答案 -->
+    <view wx:if="{{!answerOpen}}" class="card">
+      <text class="card-title">我的回答</text>
+      <textarea
+        class="note-input answer-area"
+        value="{{answer}}"
+        placeholder="边想边写下回答要点：组织好语言，再对照参考答案"
+        maxlength="1000"
+        bindinput="onAnswerInput"
+      />
+    </view>
+
+    <!-- 对照：我的回答 vs 参考答案 -->
+    <view wx:if="{{answerOpen && hasAnswer}}" class="card mine-card">
+      <text class="card-title">我的回答（对照）</text>
+      <text class="mine-text" user-select>{{answer}}</text>
+    </view>
+
+    <!-- 参考答案 -->
+    <view wx:if="{{answerOpen}}" class="card">
+      <text class="card-title">参考答案</text>
+      <text class="answer-text">{{current.a}}</text>
+    </view>
+
+    <!-- 三维度自评 -->
+    <view wx:if="{{answerOpen}}" class="card">
+      <text class="card-title">自评打分</text>
+      <view wx:for="{{dims}}" wx:key="key" class="dim-row">
+        <text class="dim-label">{{item.label}}</text>
+        <view class="stars">
+          <text
+            wx:for="{{[1, 2, 3, 4, 5]}}"
+            wx:for-item="star"
+            wx:key="*this"
+            class="star {{scores[item.key] >= star ? 'star-on' : ''}}"
+            data-dim="{{item.key}}"
+            data-star="{{star}}"
+            bindtap="rate"
+          >★</text>
+        </view>
+      </view>
+      <textarea
+        class="note-input"
+        value="{{note}}"
+        placeholder="一句话备注（如：开头卡顿、忘了举例子）"
+        maxlength="100"
+        bindinput="onNote"
+      />
+    </view>
+
+    <view class="actions">
+      <button wx:if="{{!answerOpen}}" class="btn-ghost action-btn" bindtap="seeAnswer">直接看答案</button>
+      <button wx:else class="btn-primary action-btn" bindtap="next">
+        {{index >= rounds.length - 1 ? '完成练习' : '下一题'}}
+      </button>
+    </view>
+  </block>
+
+  <!-- ========== 小结态 ========== -->
+  <block wx:elif="{{phase === 'done'}}">
+    <view class="card result-card">
+      <view class="result-head">
+        <text class="result-label">综合自评</text>
+        <text class="result-score">{{result.overall}}<text class="result-unit">/5</text></text>
+      </view>
+      <text class="result-summary">{{result.summary}}</text>
+    </view>
+
+    <view class="card">
+      <text class="card-title">各维度平均</text>
+      <view wx:for="{{result.dimensions}}" wx:key="key" class="dim-row">
+        <text class="dim-label">{{item.label}}</text>
+        <view class="stars stars-static">
+          <text
+            wx:for="{{[1, 2, 3, 4, 5]}}"
+            wx:for-item="star"
+            wx:key="*this"
+            class="star {{item.score >= star - 0.25 ? 'star-on' : ''}}"
+          >★</text>
+        </view>
+        <text class="dim-score">{{item.score}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="card-title">练习记录</text>
+      <view wx:for="{{result.rounds}}" wx:key="i" class="round-row">
+        <view class="round-head">
+          <text class="round-title">{{index + 1}}. {{item.title}}</text>
+          <text class="round-score">{{item.avg > 0 ? item.avg + ' 分' : '未评'}}</text>
+        </view>
+        <text wx:if="{{item.note}}" class="round-note">{{item.note}}</text>
+      </view>
+    </view>
+
+    <view wx:if="{{result.notes.length > 0}}" class="card">
+      <text class="card-title">改进建议</text>
+      <view wx:for="{{result.notes}}" wx:key="*this" class="note-line">
+        <text class="note-index">{{index + 1}}</text>
+        <text class="note-text">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="actions">
+      <button class="btn-primary action-btn" bindtap="onSave">保存练习记录</button>
+      <button class="btn-ghost action-btn" bindtap="restart">再练一轮</button>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,224 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 统计 */
+.stats-grid {
+  display: flex;
+}
+
+.stat-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.stat-num {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: monospace;
+  line-height: 1.2;
+}
+
+.stat-overdue {
+  color: var(--color-error);
+}
+
+.stat-label {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* 新增 */
+.add-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.add-input {
+  flex: 1;
+  height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 28rpx;
+  color: var(--color-text);
+  min-width: 0;
+}
+
+.add-btn {
+  flex-shrink: 0;
+  padding: 0 36rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  margin: 0;
+}
+
+.add-opts {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.opt-chip {
+  padding: 10rpx 24rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-bg-page);
+  color: var(--color-text-secondary);
+  font-size: 24rpx;
+}
+
+.opt-on {
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.opt-x {
+  margin-left: 8rpx;
+  color: var(--color-text-tertiary);
+}
+
+.prio-hi {
+  color: var(--color-error);
+}
+
+.prio-low {
+  color: var(--color-success);
+}
+
+/* 列表 */
+.group-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 8rpx 0;
+}
+
+.done-head {
+  margin-top: 8rpx;
+}
+
+.group-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.clear-done {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.check-circle {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--color-border-strong);
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.check-on {
+  background: var(--color-success);
+  border-color: var(--color-success);
+  color: var(--color-surface);
+  font-size: 28rpx;
+  line-height: 44rpx;
+  text-align: center;
+}
+
+.todo-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-text {
+  font-size: 30rpx;
+  color: var(--color-text);
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.done-text {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.todo-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 8rpx;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.tag-prio {
+  font-size: 22rpx;
+  padding: 2rpx 14rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-bg-page);
+}
+
+.tag-due {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.tag-overdue {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.todo-del {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  padding: 12rpx 0 12rpx 24rpx;
+  flex-shrink: 0;
+}
+
+.todo-done {
+  opacity: 0.8;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 60rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+}
+
+.empty-title {
+  margin-top: 24rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.empty-desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+}

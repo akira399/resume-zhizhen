@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # 顺序：静态守卫 → 密钥扫描 → 单测 → 云函数打包
+      # 静态守卫最便宜且拦截最多低级错误（如预览管线不认的语法），放最前
+      - name: Static guard (miniprogram syntax & refs)
+        run: npm run check:mp
+
+      - name: Secret scan
+        run: npm run check:secrets
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build cloud functions
+        run: npm run build:functions
+
+      # 云函数为 esbuild 单文件产物，体积异常通常意味着误打包 node_modules
+      # 或引入了不该进包的东西，用上限做门禁
+      - name: Check bundle size
+        run: node scripts/check-bundle-size.js

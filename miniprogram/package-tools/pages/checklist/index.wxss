@@ -1,0 +1,325 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* ---------- 输入区 ---------- */
+
+.section-head-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.import-btn {
+  padding: 10rpx 24rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.import-btn-disabled {
+  opacity: 0.6;
+}
+
+.import-hint {
+  margin-top: 16rpx;
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+}
+
+/* 引导：主行动按钮与就绪提示 */
+.start-btn {
+  margin-top: 24rpx;
+}
+
+.started-tip {
+  margin-top: 20rpx;
+  padding: 16rpx 20rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-success-subtle);
+}
+
+.tip-main {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.tip-sub {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  line-height: 1.5;
+  color: var(--color-text-tertiary);
+}
+
+/* 自动判定徽章 */
+.check-right {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex-shrink: 0;
+  margin-left: 16rpx;
+}
+
+.auto-badge {
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.auto-done {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.auto-todo {
+  background: var(--color-error-subtle);
+  color: var(--color-error);
+}
+
+/* 未开始时清单区弱显，暗示"先点开始自查" */
+.check-locked {
+  opacity: 0.55;
+}
+
+.resume-input {
+  width: 100%;
+  height: 220rpx;
+  margin-top: 20rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.sample-row {
+  margin-top: 20rpx;
+}
+
+.sample-tip {
+  display: block;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.sample-chips {
+  display: flex;
+  margin-top: 12rpx;
+}
+
+.sample-chip {
+  padding: 8rpx 24rpx;
+  margin-right: 16rpx;
+  border-radius: 24rpx;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 24rpx;
+}
+
+/* ---------- 维度与检查项 ---------- */
+
+.dim-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.dim-title {
+  margin-bottom: 0;
+}
+
+.dim-weight {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.check-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22rpx 0;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.check-item:first-child {
+  border-top: none;
+}
+
+.check-text {
+  flex: 1;
+  font-size: 27rpx;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-right: 16rpx;
+}
+
+.check-done .check-text {
+  color: var(--color-text-secondary);
+}
+
+.check-na .check-text {
+  color: var(--color-text-quaternary);
+}
+
+.check-status {
+  flex: none;
+  min-width: 96rpx;
+  text-align: center;
+  padding: 6rpx 0;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+}
+
+.check-status-done {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.check-status-todo {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+
+.check-status-na {
+  background: var(--color-border);
+  color: var(--color-text-tertiary);
+}
+
+/* 待确认：中性灰，不预判好坏（替代旧版默认「待改进」红字） */
+.check-status-pending {
+  background: var(--color-bg-page);
+  color: var(--color-text-tertiary);
+  border: 1rpx dashed var(--color-border-strong);
+}
+
+/* ---------- 结果区 ---------- */
+
+.result-card {
+  margin-top: 32rpx;
+}
+
+.result-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.result-label {
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+}
+
+.result-score {
+  font-size: 72rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.result-unit {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+}
+
+/* 未确认完不出分：灰色占位，避免「还没看就满分」的误导 */
+.score-pending {
+  color: var(--color-text-tertiary);
+}
+
+.pending-hint {
+  margin-top: 14rpx;
+  padding: 14rpx 18rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-primary-subtle);
+  font-size: 22rpx;
+  line-height: 1.6;
+  color: var(--color-primary);
+}
+
+.result-summary {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 27rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+.result-counts {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.count-chip {
+  padding: 8rpx 24rpx;
+  margin-right: 16rpx;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+}
+
+.count-done {
+  background: var(--color-success-subtle);
+  color: var(--color-success);
+}
+
+.count-todo {
+  background: var(--color-warning-subtle);
+  color: var(--color-warning);
+}
+
+.notes {
+  margin-top: 24rpx;
+}
+
+.notes-title {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 8rpx;
+}
+
+.note-line {
+  display: flex;
+  padding: 8rpx 0;
+}
+
+.note-index {
+  flex: none;
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 12rpx;
+  border-radius: 50%;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 22rpx;
+  font-weight: 600;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.note-text {
+  flex: 1;
+  font-size: 25rpx;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- 操作区 ---------- */
+
+.actions {
+  margin: 40rpx 24rpx 0;
+}
+
+.action-btn {
+  margin-bottom: 20rpx;
+}

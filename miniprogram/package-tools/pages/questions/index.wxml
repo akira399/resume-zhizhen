@@ -1,0 +1,92 @@
+<view class="qbank">
+  <!-- 分类 tab -->
+  <scroll-view class="cat-bar" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="cat-bar-inner">
+      <view
+        wx:for="{{categories}}"
+        wx:key="key"
+        class="cat-item {{item.key === activeKey && !keyword ? 'cat-item-active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="onSwitchCategory"
+      >
+        <text class="cat-icon">{{item.icon}}</text>
+        <text class="cat-name">{{item.name}}</text>
+        <text class="cat-count">{{item.count}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 搜索 -->
+  <view class="search">
+    <text class="search-icon">🔍</text>
+    <input
+      class="search-input"
+      placeholder="搜索题目或答案关键词"
+      placeholder-class="search-placeholder"
+      value="{{keyword}}"
+      confirm-type="search"
+      bindinput="onKeywordInput"
+    />
+    <text wx:if="{{keyword}}" class="search-clear" bindtap="onClearKeyword">✕</text>
+  </view>
+
+  <!-- 搜索态提示 -->
+  <view wx:if="{{keyword}}" class="search-meta">
+    <text class="search-meta-text">全部分类中找到 {{list.length}} 道相关题目</text>
+  </view>
+
+  <!-- M5：练习进度 + 收藏筛选 -->
+  <view class="prog-row">
+    <view class="prog-track">
+      <view class="prog-inner" style="width: {{progressPct}}%"></view>
+    </view>
+    <text class="prog-text">{{progressPct}}% 已练</text>
+    <text class="prog-fav {{favOnly ? 'prog-fav-active' : ''}}" bindtap="onSwitchFav">★ {{favCount}}</text>
+  </view>
+
+  <!-- 题目列表 -->
+  <view wx:if="{{list.length > 0}}" class="q-list">
+    <view
+      wx:for="{{list}}"
+      wx:key="q"
+      class="q-card {{expandedKey === item.q ? 'q-card-open' : ''}}"
+    >
+      <view class="q-head" data-q="{{item.q}}" bindtap="onToggle">
+        <text class="q-title">{{item.q}}</text>
+        <view class="q-actions">
+          <text
+            class="q-btn {{item.isDone ? 'q-btn-done' : ''}}"
+            data-q="{{item.q}}"
+            catchtap="onToggleDone"
+          >{{item.isDone ? '✓ 已练' : '标已练'}}</text>
+          <text
+            class="q-star {{item.isFav ? 'q-star-on' : ''}}"
+            data-q="{{item.q}}"
+            catchtap="onToggleFav"
+          >★</text>
+          <text class="q-arrow">{{expandedKey === item.q ? '▾' : '›'}}</text>
+        </view>
+      </view>
+      <view wx:if="{{item.catName}}" class="q-cat">
+        <text class="q-cat-tag">{{item.catName}}</text>
+      </view>
+      <view wx:if="{{expandedKey === item.q}}" class="q-body">
+        <text class="q-answer" user-select>{{item.a}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空态：搜索无结果 -->
+  <view wx:if="{{keyword && list.length === 0}}" class="q-empty">
+    <text class="q-empty-icon">🔍</text>
+    <text class="q-empty-title">没有找到相关题目</text>
+    <text class="q-empty-desc">换个关键词试试，比如「索引」「防抖」「offer」</text>
+  </view>
+
+  <!-- 空态：只看收藏但没收藏 -->
+  <view wx:if="{{favOnly && !keyword && list.length === 0}}" class="q-empty">
+    <text class="q-empty-icon">★</text>
+    <text class="q-empty-title">还没有收藏的题目</text>
+    <text class="q-empty-desc">在题目右侧点 ★ 收藏，重点题随时回看</text>
+  </view>
+</view>

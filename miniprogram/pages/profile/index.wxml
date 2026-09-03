@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">我的</text>
+    <text class="hero-mini-sub">简历智诊 · 管好每一次投递，不错过每一次机会</text>
+  </view>
+
+  <view class="card">
+    <view class="entry-row" bindtap="goHistory">
+      <view>
+        <text class="entry-main">历史记录</text>
+        <text class="entry-sub">查看并管理全部自查 / 比对 / 练习记录</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-row" bindtap="goBackup">
+      <view>
+        <text class="entry-main">数据备份与恢复</text>
+        <text class="entry-sub">导出全部数据，换机不丢失</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-row" bindtap="onViewPrivacy">
+      <view>
+        <text class="entry-main">用户隐私保护指引</text>
+        <text class="entry-sub">查看我们如何处理你的数据</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+
+    <view class="entry-row" bindtap="onAbout">
+      <view>
+        <text class="entry-main">关于</text>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="local-tip">
+    你的全部记录默认保存在本机，仅你本人可见，可随时删除。
+  </view>
+</view>

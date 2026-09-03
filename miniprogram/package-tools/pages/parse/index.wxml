@@ -1,0 +1,79 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">简历解析</text>
+    <text class="hero-mini-sub">粘贴简历，自动提取联系方式 / 教育 / 技能 / 经历</text>
+  </view>
+
+  <!-- 输入 -->
+  <view class="card">
+    <view class="head-row">
+      <text class="section-title">粘贴简历文本</text>
+      <view class="head-actions">
+        <text class="import-btn {{importing ? 'import-btn-disabled' : ''}}" bindtap="onImportResume">{{importing ? '解析中…' : '📎 从文件导入'}}</text>
+        <text class="sample-link" bindtap="onFillSample">填入示例</text>
+      </view>
+    </view>
+    <textarea
+      class="input-area"
+      value="{{resumeText}}"
+      placeholder="从 Word / 网页复制简历正文粘贴到这里…"
+      maxlength="5000"
+      bindinput="onInput"
+    />
+    <view class="import-hint">支持 PDF / Word(.docx) / TXT。文件需先发到「文件传输助手」再导入。</view>
+    <button class="btn-primary gen-btn" bindtap="onParse">解析简历</button>
+  </view>
+
+  <!-- 结果 -->
+  <block wx:if="{{hasResult}}">
+    <!-- 联系方式 -->
+    <view wx:if="{{parsed.contacts.phone.length || parsed.contacts.email.length || parsed.contacts.github.length}}" class="card">
+      <text class="section-title">联系方式</text>
+      <view class="kv-row" wx:if="{{parsed.contacts.phone.length}}">
+        <text class="kv-label">📱 电话</text>
+        <text class="kv-value">{{parsed.contacts.phone[0]}}</text>
+      </view>
+      <view class="kv-row" wx:if="{{parsed.contacts.email.length}}">
+        <text class="kv-label">📧 邮箱</text>
+        <text class="kv-value">{{parsed.contacts.email[0]}}</text>
+      </view>
+      <view class="kv-row" wx:if="{{parsed.contacts.github.length}}">
+        <text class="kv-label">💻 GitHub</text>
+        <text class="kv-value">{{parsed.contacts.github[0]}}</text>
+      </view>
+    </view>
+
+    <!-- 教育 -->
+    <view wx:if="{{parsed.education.length}}" class="card">
+      <text class="section-title">教育背景</text>
+      <text class="edu-line" wx:for="{{parsed.education}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <!-- 技能 -->
+    <view wx:if="{{parsed.skills.length}}" class="card">
+      <text class="section-title">专业技能</text>
+      <view class="chip-wrap">
+        <text class="skill-chip" wx:for="{{parsed.skills}}" wx:key="*this">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- 经历 -->
+    <view wx:if="{{parsed.experience.length}}" class="card">
+      <view class="head-row">
+        <text class="section-title">经历片段</text>
+        <text class="copy-btn" bindtap="onCopy">复制摘要</text>
+      </view>
+      <view class="exp-block" wx:for="{{parsed.experience}}" wx:key="index">
+        <text class="exp-title">{{item.title}}</text>
+        <text class="exp-line" wx:for="{{item.body}}" wx:for-item="line" wx:key="index">{{line}}</text>
+      </view>
+    </view>
+
+    <!-- 未命中提示 -->
+    <view wx:if="{{!parsed.hit}}" class="card">
+      <text class="miss-hint">未识别到结构化信息。请检查：简历里是否包含手机号 / 邮箱 / 学校 / 技能清单等字段。</text>
+    </view>
+  </block>
+</view>

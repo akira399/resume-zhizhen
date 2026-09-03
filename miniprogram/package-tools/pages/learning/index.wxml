@@ -1,0 +1,41 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">学习路径</text>
+    <text class="hero-mini-sub">选个方向，按路线一步步准备，不打无准备之仗</text>
+  </view>
+
+  <!-- 方向切换 -->
+  <scroll-view class="dir-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="dir-tab {{current === index ? 'dir-on' : ''}}" wx:for="{{paths}}" wx:key="key" data-index="{{index}}" bindtap="onSwitchPath">
+      <text class="dir-icon">{{item.icon}}</text>
+      <text class="dir-name">{{item.label}}</text>
+      <text class="dir-done">{{item.done}}/{{item.total}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 当前方向 -->
+  <block wx:if="{{activePath}}">
+    <view class="path-head">
+      <text class="path-title">{{activePath.icon}} {{activePath.label}}准备路线</text>
+      <text class="path-reset" bindtap="onReset">重置进度</text>
+    </view>
+
+    <view class="card stage-card" wx:for="{{activePath.stages}}" wx:key="key">
+      <view
+        class="stage-head {{item.checked ? 'stage-done' : ''}}"
+        data-path="{{activePath.key}}"
+        data-stage="{{item.key}}"
+        bindtap="onToggleStage"
+      >
+        <view class="stage-check {{item.checked ? 'check-on' : ''}}">{{item.checked ? '✓' : ''}}</view>
+        <text class="stage-label">{{item.label}}</text>
+        <text class="stage-arrow">›</text>
+      </view>
+      <view class="stage-items">
+        <text class="stage-item" wx:for="{{item.items}}" wx:for-item="line" wx:key="*this">· {{line}}</text>
+      </view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,209 @@
+/**
+ * 结果页共用样式。
+ *
+ * 简历诊断与 JD 匹配的结果页状态机与版式一致
+ * （状态条 / 总评 / 关键词 / 错误态 / 操作区），差异只在中间的结果列表，
+ * 因此共用部分抽到这里，各页只保留自己的列表样式并用 @import 引入。
+ */
+
+.result {
+  padding-bottom: 48rpx;
+}
+
+/* 结果页的卡片比全局 .card 更紧凑：内容密度高，留白太大反而要频繁滚动 */
+.card {
+  background: var(--color-surface);
+  border-radius: 16rpx;
+  margin: 24rpx;
+  padding: 28rpx;
+}
+
+.card-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 20rpx;
+}
+
+.center {
+  text-align: center;
+}
+
+/* ---------- 头部状态 ---------- */
+
+/*
+ * 头部状态卡品牌化：浅品牌底 + 左侧渐变竖条，
+ * 让「分数/状态」成为结果页第一眼的视觉锚点（与面试报告的渐变总分卡呼应）。
+ */
+.head-card {
+  position: relative;
+  padding: 24rpx 28rpx 24rpx 34rpx;
+  background: var(--color-primary-subtle);
+  overflow: hidden;
+}
+
+.head-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8rpx;
+  background: linear-gradient(180deg, var(--color-primary), var(--color-primary-gradient-end));
+}
+
+.head-row {
+  display: flex;
+  align-items: center;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  margin-right: 20rpx;
+}
+
+.score-num {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.score-unit {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  margin-left: 6rpx;
+}
+
+.dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-right: 12rpx;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.status-text {
+  font-size: 26rpx;
+  color: var(--color-primary);
+}
+
+.done-tag {
+  font-size: 26rpx;
+  color: var(--color-success);
+}
+
+/* ---------- 总体评价 ---------- */
+
+.summary {
+  display: block;
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* ---------- 严重等级标签 ---------- */
+/* 诊断结果页与历史详情页都要渲染「逐条建议」的等级标签，
+   此前两处各写了一份完全相同的实现。抽到这里，改配色只改一处。 */
+
+.tag {
+  font-size: 22rpx;
+  border-radius: 6rpx;
+  padding: 4rpx 12rpx;
+}
+
+.tag-high {
+  color: var(--color-error);
+  background: var(--color-error-subtle);
+}
+
+.tag-medium {
+  color: var(--color-warning);
+  background: var(--color-warning-subtle);
+}
+
+.tag-low {
+  color: var(--color-text-secondary);
+  background: var(--color-border);
+}
+
+/* ---------- 关键词 ---------- */
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.keyword {
+  font-size: 24rpx;
+  color: var(--color-primary);
+  background: var(--color-primary-subtle);
+  border-radius: 8rpx;
+  padding: 8rpx 18rpx;
+  margin: 0 16rpx 16rpx 0;
+}
+
+/* 缺失关键词用警示色，与已覆盖的蓝色区分 */
+.keyword-missing {
+  color: var(--color-warning);
+  background: var(--color-warning-subtle);
+}
+
+/* ---------- 空态与错误态 ---------- */
+
+.placeholder {
+  display: block;
+  color: var(--color-text-tertiary);
+  font-size: 26rpx;
+  padding: 40rpx 0;
+}
+
+.state-icon {
+  display: block;
+  font-size: 64rpx;
+  margin: 16rpx 0 24rpx;
+}
+
+.err-msg {
+  display: block;
+  color: var(--color-text-secondary);
+  font-size: 27rpx;
+  line-height: 1.6;
+  margin-bottom: 12rpx;
+}
+
+.err-hint {
+  display: block;
+  color: var(--color-text-tertiary);
+  font-size: 24rpx;
+  margin-bottom: 32rpx;
+}
+
+/* ---------- 操作区 ---------- */
+
+.actions {
+  display: flex;
+  margin: 32rpx 24rpx 0;
+}
+
+/* 双按钮并排（复制 + 分享）；间距用相邻 margin 而非 gap，低端机更稳 */
+.actions button {
+  flex: 1;
+}
+
+.actions button + button {
+  margin-left: 20rpx;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}

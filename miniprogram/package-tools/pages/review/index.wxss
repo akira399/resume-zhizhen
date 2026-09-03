@@ -1,0 +1,201 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 统计卡 */
+.stats-grid {
+  display: flex;
+}
+
+.stat-cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8rpx 0;
+}
+
+.stat-num {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: monospace;
+  line-height: 1.2;
+}
+
+.stat-label {
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.top-block {
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.top-title {
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.warn-title {
+  color: var(--color-warning);
+}
+
+.chip-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 12rpx;
+  gap: 12rpx;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-primary-subtle);
+}
+
+.chip-warn {
+  background: var(--color-warning-subtle);
+}
+
+.chip-text {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+}
+
+.chip-count {
+  margin-left: 8rpx;
+  font-size: 20rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* 复盘卡片 */
+.review-card {
+  margin-bottom: 24rpx;
+}
+
+.review-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.review-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.review-company {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.review-position {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.review-stars {
+  display: flex;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}
+
+.star {
+  font-size: 30rpx;
+  color: var(--color-border-strong);
+  margin-left: 2rpx;
+}
+
+.star-on {
+  color: var(--color-gold);
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.meta-chip {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+  padding: 6rpx 16rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-bg-page);
+}
+
+.meta-date {
+  margin-left: auto;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.review-notes {
+  margin-top: 16rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  background: var(--color-bg-page);
+}
+
+.notes-text {
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.review-actions {
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-del {
+  font-size: 24rpx;
+  color: var(--color-error);
+  padding: 8rpx 16rpx;
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 60rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+}
+
+.empty-title {
+  margin-top: 24rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.empty-desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+}
+
+.empty-btn {
+  margin-top: 40rpx;
+  width: 320rpx;
+}

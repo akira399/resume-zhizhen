@@ -1,0 +1,284 @@
+/**
+ * 全局样式。
+ *
+ * 设计变量统一在 styles/tokens.wxss（P2-2），这里 @import 后定义的变量
+ * 挂在 page 选择器上，所有页面元素都能通过 var() 继承，页面 wxss 无需重复引入。
+ * 新增通用类时一律用变量，不要写死色值——否则又会回到「同一样式三个色」的状态。
+ */
+@import './styles/tokens.wxss';
+
+page {
+  background: var(--color-bg-page);
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--space-card);
+  margin: var(--space-page);
+  box-shadow: var(--shadow-card);
+  /* 卡片入场：轻微上浮 + 淡入，列表项按 nth-child 错开（见下方动效段） */
+  animation: card-in var(--duration-base) var(--ease-out) backwards;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  border-radius: var(--radius-btn);
+  font-size: 32rpx;
+  font-weight: 600;
+  /* 品牌色投影：主按钮从页面上「浮」起来，与首页 CTA 的层次感一致 */
+  box-shadow: var(--shadow-cta);
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-primary[disabled] {
+  background: var(--color-primary-disabled);
+  color: var(--color-surface);
+  box-shadow: none;
+}
+
+.btn-ghost {
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1rpx solid var(--color-border-strong);
+  border-radius: var(--radius-btn);
+  font-size: 30rpx;
+}
+
+.btn-ghost::after {
+  border: none;
+}
+
+/* ---- 品牌页头（Tab 页）：首页 Hero 的矮版，把品牌感带进每个一级页面 ---- */
+
+.hero-mini {
+  position: relative;
+  overflow: hidden;
+  padding: 44rpx 40rpx;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-gradient-end) 100%
+  );
+  border-radius: 0 0 var(--radius-head) var(--radius-head);
+  animation: card-in var(--duration-slow) var(--ease-out) backwards;
+}
+
+/* 装饰光斑：与首页同款手法，半透明白圆制造渐变层次 */
+.hero-mini-deco {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+}
+
+.hero-mini-deco-a {
+  width: 260rpx;
+  height: 260rpx;
+  top: -120rpx;
+  right: -70rpx;
+}
+
+.hero-mini-deco-b {
+  width: 180rpx;
+  height: 180rpx;
+  bottom: -70rpx;
+  left: -60rpx;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hero-mini-title {
+  position: relative;
+  display: block;
+  font-size: 44rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  color: var(--color-surface);
+}
+
+.hero-mini-sub {
+  position: relative;
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---- 彩色图标容器：emoji 图标的统一载体，与首页功能卡同款 ---- */
+
+.icon-tile {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 88rpx;
+  height: 88rpx;
+  margin-right: 24rpx;
+  border-radius: 24rpx;
+  background: var(--color-primary-subtle);
+  font-size: 44rpx;
+}
+
+/* 琥珀变体：与首页「岗位匹配」入口的图标底色呼应 */
+.icon-tile-amber {
+  background: var(--color-warning-subtle);
+}
+
+/* 小号变体：表单 label 行内使用 */
+.icon-tile-sm {
+  width: 64rpx;
+  height: 64rpx;
+  margin-right: 16rpx;
+  border-radius: 16rpx;
+  font-size: 32rpx;
+}
+
+/* ---- 通用版式：供各 Tab 页面复用，避免每张页面重写一遍 ---- */
+
+.section-title {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.section-desc {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 27rpx;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+/* 列表行：左侧主文案 + 右侧辅助文案与箭头 */
+.entry-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 0;
+  border-bottom: 1rpx solid var(--color-border);
+}
+
+.entry-row:last-child {
+  border-bottom: none;
+}
+
+.entry-main {
+  display: block;
+  font-size: 30rpx;
+  color: var(--color-text);
+}
+
+.entry-sub {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.entry-arrow {
+  font-size: 34rpx;
+  color: var(--color-text-quaternary);
+}
+
+/* 未上线的功能域占位 */
+.empty-title {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.empty-desc {
+  display: block;
+  margin-top: 12rpx;
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+}
+
+
+
+/* ---- 动效（P2-2 模块 C） ---- */
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * 入场错开（stagger）：列表逐项浮现，避免整屏同时弹出显得生硬。
+ * 步长 60ms 写死而不用「calc 乘以步长变量」——calc 嵌变量的
+ * 乘法在部分低端安卓 WebView 上兼容性未验证，动效挂了卡片会一直透明，
+ * 不值得为这点优雅性冒险。（注释里不要出现「var 加变量名」的字样，
+ * 变量守卫不区分注释，会把它当成真实引用来校验。）
+ */
+.card:nth-child(2) { animation-delay: 60ms; }
+.card:nth-child(3) { animation-delay: 120ms; }
+.card:nth-child(4) { animation-delay: 180ms; }
+.card:nth-child(n + 5) { animation-delay: 240ms; }
+
+/*
+ * 按钮按压态：button 组件的默认 hover 类名就是 button-hover，
+ * 全局定义一次即可生效，无需逐个 wxml 加 hover-class。
+ * 反馈统一用透明度，背景色保持不变——默认的「按压变灰」在主色按钮上很脏。
+ */
+.button-hover {
+  opacity: 0.85;
+}
+
+.btn-primary.button-hover {
+  background: var(--color-primary);
+}
+
+.btn-ghost.button-hover {
+  background: var(--color-surface);
+}
+
+/* ---- 骨架屏：列表首屏加载占位 ---- */
+/* shimmer 用背景位移动画而非 opacity 闪烁，观感更接近「内容正在填充」 */
+
+.sk {
+  height: 28rpx;
+  border-radius: var(--radius-skeleton);
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    var(--color-surface) 37%,
+    var(--color-border) 63%
+  );
+  background-size: 400% 100%;
+  animation: sk-shimmer 1.4s var(--ease-in-out) infinite;
+}
+
+.sk + .sk {
+  margin-top: 20rpx;
+}
+
+.sk-line-title {
+  width: 40%;
+  height: 32rpx;
+}
+
+.sk-line-short {
+  width: 55%;
+}
+
+@keyframes sk-shimmer {
+  from { background-position: 100% 50%; }
+  to { background-position: 0 50%; }
+}

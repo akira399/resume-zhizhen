@@ -1,0 +1,46 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">面试准备</text>
+    <text class="hero-mini-sub">高频题速查，练到有底气</text>
+  </view>
+
+  <view class="card entry" hover-class="press" bindtap="goQuestions">
+    <view class="entry-icon">📚</view>
+    <view class="entry-body">
+      <view class="entry-name">面试题库</view>
+      <view class="entry-desc">100+ 道高频题 · 行为面 / 后端 / 前端 / 算法 / HR · 本地速查</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <view wx:if="{{practiceReady}}" class="card entry" hover-class="press" bindtap="goPractice">
+    <view class="entry-icon">💬</view>
+    <view class="entry-body">
+      <view class="entry-name">面试练习室</view>
+      <view class="entry-desc">抽题 + 计时 + 写回答 + 对照答案自评</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <!-- M9：面试复盘，面试后记录 -->
+  <view class="card entry" hover-class="press" bindtap="goReview">
+    <view class="entry-icon entry-icon-review">📝</view>
+    <view class="entry-body">
+      <view class="entry-name">面试复盘</view>
+      <view class="entry-desc">面试后记一笔 · 被问最多的问题 / 最需改进 · 越面越好</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+
+  <!-- P2-13：刷题模式 -->
+  <view class="card entry" hover-class="press" bindtap="goPracticeMode">
+    <view class="entry-icon entry-icon-mode">🎯</view>
+    <view class="entry-body">
+      <view class="entry-name">刷题模式</view>
+      <view class="entry-desc">顺序 / 随机 / 错题重刷 · 正确率统计</view>
+    </view>
+    <view class="entry-arrow">›</view>
+  </view>
+</view>

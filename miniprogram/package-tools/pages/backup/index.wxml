@@ -1,0 +1,38 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">数据备份与恢复</text>
+    <text class="hero-mini-sub">数据默认存本机，换机前记得导出备份</text>
+  </view>
+
+  <!-- 导出 -->
+  <view class="card">
+    <text class="card-title">导出备份</text>
+    <text class="desc">把全部数据（投递记录 / 历史记录 / 题库收藏 / 已练标记）打包成一段文本，复制后存到备忘录、网盘或发给自己。</text>
+    <button class="btn-primary action-btn" bindtap="onExport">生成并复制备份</button>
+    <view wx:if="{{backupText}}" class="backup-preview">
+      <view class="preview-head">
+        <text class="preview-title">备份内容（可再次复制）</text>
+        <text class="preview-clear" bindtap="onClearBackup">清除</text>
+      </view>
+      <scroll-view class="preview-body" scroll-y>
+        <text class="preview-text" user-select>{{backupText}}</text>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 导入 -->
+  <view class="card">
+    <text class="card-title">导入备份</text>
+    <text class="desc">把之前导出的备份内容粘贴到这里，导入会<text class="warn">整体覆盖</text>当前数据。</text>
+    <textarea
+      class="import-input"
+      value="{{importText}}"
+      placeholder="粘贴备份 JSON…"
+      maxlength="100000"
+      bindinput="onImportInput"
+    />
+    <button class="btn-primary action-btn" bindtap="onImport">导入并覆盖</button>
+  </view>
+</view>

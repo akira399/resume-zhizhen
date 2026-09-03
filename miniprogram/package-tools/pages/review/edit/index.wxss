@@ -1,0 +1,118 @@
+.page {
+  padding-bottom: 80rpx;
+}
+
+.form-card {
+  margin-bottom: 24rpx;
+}
+
+.field {
+  margin-top: 28rpx;
+}
+
+.field:first-of-type {
+  margin-top: 16rpx;
+}
+
+.field-label {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 12rpx;
+}
+
+.field-tip {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.input {
+  height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+.company-pick {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.company-pick .input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pick-btn {
+  padding: 0 24rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 16rpx;
+  background: var(--color-primary-subtle);
+  color: var(--color-primary);
+  font-size: 24rpx;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.picker-value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80rpx;
+  padding: 0 24rpx;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 28rpx;
+  color: var(--color-text);
+}
+
+.picker-arrow {
+  color: var(--color-text-tertiary);
+}
+
+.textarea {
+  width: 100%;
+  height: 180rpx;
+  padding: 20rpx 24rpx;
+  box-sizing: border-box;
+  border-radius: 16rpx;
+  background: var(--color-bg-page);
+  font-size: 26rpx;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+/* 星级评分 */
+.rate-row {
+  display: flex;
+  align-items: center;
+}
+
+.rate-star {
+  font-size: 64rpx;
+  line-height: 1;
+  color: var(--color-border-strong);
+  margin-right: 12rpx;
+  transition: transform 0.15s;
+}
+
+.rate-star.rate-on {
+  color: var(--color-gold);
+}
+
+.rate-hint {
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.save-btn {
+  margin-top: 8rpx;
+}

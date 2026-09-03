@@ -1,0 +1,87 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">Offer 对比</text>
+    <text class="hero-mini-sub">看板里状态为「Offer」的公司自动聚合，拖滑块打分看排名</text>
+  </view>
+
+  <!-- 权重说明 -->
+  <view class="card dims-card">
+    <text class="card-title">打分维度与权重</text>
+    <view class="dim-bar-row" wx:for="{{dims}}" wx:key="key">
+      <text class="dim-name">{{item.label}}</text>
+      <view class="dim-track">
+        <view class="dim-fill" style="width: {{item.weight * 100}}%">
+          <text class="dim-fill-label">{{item.weight * 100}}%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Offer 卡片列表 -->
+  <view wx:if="{{!empty}}" class="offer-list">
+    <view class="card offer-card" wx:for="{{offers}}" wx:key="id" wx:for-index="idx">
+      <view class="offer-head">
+        <view class="offer-rank {{item.rank === 1 ? 'rank-first' : ''}}">
+          <text class="rank-num">{{item.rank ? item.rank : '—'}}</text>
+          <text class="rank-label">{{item.rank === 1 ? '首选' : '名'}}</text>
+        </view>
+        <view class="offer-info">
+          <view class="offer-title-row">
+            <text class="offer-company">{{item.company}}</text>
+            <text class="offer-total {{item.rated ? '' : 'total-empty'}}">{{item.rated ? item.total : '待打分'}}</text>
+          </view>
+          <text class="offer-position">{{item.position}}</text>
+        </view>
+      </view>
+
+      <view class="dim-slider-row" wx:for="{{item.dims}}" wx:for-item="d" wx:for-index="di" wx:key="key">
+        <view class="slider-meta">
+          <text class="slider-label">{{d.label}}</text>
+          <text class="slider-weight">权重 {{d.weight * 100}}%</text>
+        </view>
+        <view class="slider-line">
+          <slider
+            class="dim-slider"
+            min="0"
+            max="10"
+            step="1"
+            value="{{d.score === null ? 5 : d.score}}"
+            activeColor="var(--color-primary)"
+            backgroundColor="var(--color-border)"
+            block-size="20"
+            data-index="{{idx}}"
+            data-id="{{item.id}}"
+            data-key="{{d.key}}"
+            bindchanging="onScoreChanging"
+            bindchange="onScoreChange"
+          />
+          <text class="slider-score">{{d.score === null ? '—' : d.score}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 完成动作：打分完成后的出口与确认感 -->
+  <view wx:if="{{!empty && !loading}}" class="card action-card">
+    <button class="btn-primary action-btn" bindtap="onCopyResult">复制对比结果</button>
+    <text class="action-tip">打分完成后点这里，把结论复制出来发给家人朋友参考</text>
+  </view>
+
+  <view wx:if="{{loading}}" class="empty">
+    <text class="empty-title">加载中…</text>
+  </view>
+  <view wx:elif="{{errMsg}}" class="empty">
+    <text class="empty-icon">⚠️</text>
+    <text class="empty-title">加载失败</text>
+    <text class="empty-desc">{{errMsg}}</text>
+    <button class="btn-primary empty-btn" bindtap="onRetry">重新加载</button>
+  </view>
+  <view wx:elif="{{empty}}" class="empty">
+    <text class="empty-icon">🎯</text>
+    <text class="empty-title">还没有 Offer</text>
+    <text class="empty-desc">去投递看板，把已经拿到 Offer 的公司状态改成「Offer」，就会自动出现在这里</text>
+    <button class="btn-primary empty-btn" bindtap="goKanban">去投递看板</button>
+  </view>
+</view>

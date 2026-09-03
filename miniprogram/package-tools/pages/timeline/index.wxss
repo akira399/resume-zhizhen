@@ -1,0 +1,248 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 目标卡 */
+.goal-card {
+  margin-bottom: 24rpx;
+}
+
+.goal-row {
+  display: flex;
+  align-items: center;
+}
+
+.goal-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.goal-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.goal-current {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.goal-input-wrap {
+  display: flex;
+  align-items: center;
+  margin-left: 16rpx;
+  height: 72rpx;
+  padding: 0 16rpx;
+  border-radius: 12rpx;
+  background: var(--color-bg-page);
+  flex-shrink: 0;
+}
+
+.goal-input {
+  width: 96rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.goal-unit {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.goal-btn {
+  margin-left: 16rpx;
+  padding: 0 28rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 26rpx;
+  flex-shrink: 0;
+}
+
+.goal-stats {
+  display: flex;
+  margin-top: 24rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.goal-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goal-num {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: monospace;
+}
+
+.goal-num.ok {
+  color: var(--color-success);
+}
+
+.goal-label {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* 粒度切换 */
+.gran-tabs {
+  display: flex;
+  background: var(--color-surface);
+  border-radius: var(--radius-btn);
+  padding: 6rpx;
+  margin-bottom: 24rpx;
+}
+
+.gran-tab {
+  flex: 1;
+  height: 68rpx;
+  line-height: 68rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: var(--color-text-secondary);
+  border-radius: 12rpx;
+  transition: all 0.2s;
+}
+
+.gran-on {
+  background: var(--color-primary);
+  color: var(--color-surface);
+  font-weight: 600;
+  box-shadow: 0 4rpx 12rpx var(--shadow-cta);
+}
+
+/* 时间线卡片 */
+.tl-card {
+  margin-bottom: 20rpx;
+}
+
+.tl-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tl-period {
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-label {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.tl-range {
+  margin-top: 2rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.tl-count {
+  display: flex;
+  align-items: baseline;
+}
+
+.tl-total {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: var(--color-primary);
+  font-family: monospace;
+  line-height: 1;
+}
+
+.tl-total-unit {
+  margin-left: 8rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+.tl-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.tl-chip {
+  font-size: 22rpx;
+  color: var(--color-text-secondary);
+  padding: 4rpx 14rpx;
+  border-radius: var(--radius-chip);
+  background: var(--color-bg-page);
+}
+
+.tl-pct {
+  margin-left: auto;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: var(--color-warning);
+}
+
+.tl-pct.pct-ok {
+  color: var(--color-success);
+}
+
+.bar-track {
+  height: 14rpx;
+  margin-top: 16rpx;
+  border-radius: 7rpx;
+  background: var(--color-bg-page);
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 7rpx;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+  transition: width 0.4s var(--ease-out);
+}
+
+.bar-fill.bar-ok {
+  background: var(--color-success);
+}
+
+/* 空状态 */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 60rpx;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 96rpx;
+}
+
+.empty-title {
+  margin-top: 24rpx;
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.empty-desc {
+  margin-top: 12rpx;
+  font-size: 24rpx;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+}
+
+.empty-btn {
+  margin-top: 40rpx;
+  width: 320rpx;
+}

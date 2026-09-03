@@ -1,0 +1,124 @@
+<view class="result">
+  <!-- 加载中 -->
+  <view wx:if="{{loading}}" class="card center">
+    <text class="placeholder">加载中…</text>
+  </view>
+
+  <!-- 错误态 -->
+  <view wx:elif="{{errMsg}}" class="card center">
+    <text class="state-icon">⚠️</text>
+    <text class="err-msg">{{errMsg}}</text>
+    <button class="btn-ghost retry-btn" bindtap="onReload">重新加载</button>
+  </view>
+
+  <block wx:else>
+    <!-- 头部：业务类型 + 状态 + 时间 -->
+    <view class="card head-card">
+      <view class="head-row">
+        <view wx:if="{{hasScore}}" class="score">
+          <text class="score-num">{{score}}</text>
+          <text class="score-unit">/ 100</text>
+        </view>
+        <text class="done-tag">
+          {{bizLabel}} · {{statusLabel}} · {{timeText}}
+        </text>
+      </view>
+    </view>
+
+    <!-- 总结 -->
+    <view wx:if="{{summary}}" class="card">
+      <text class="card-title">总结</text>
+      <text class="summary">{{summary}}</text>
+    </view>
+
+    <!-- 通用要点列表 -->
+    <view wx:if="{{notes.length > 0}}" class="card">
+      <text class="card-title">要点</text>
+      <view wx:for="{{notes}}" wx:key="*this" class="suggestion">
+        <text class="suggestion-index">{{index + 1}}</text>
+        <text class="suggestion-text">{{item}}</text>
+      </view>
+    </view>
+
+    <!-- ===== 简历自查（checklist）：各维度得分 + 待改进项 ===== -->
+    <block wx:if="{{biz === 'checklist'}}">
+      <view wx:if="{{dimensions.length > 0}}" class="card">
+        <text class="card-title">各维度得分</text>
+        <view wx:for="{{dimensions}}" wx:key="key" class="dim-row">
+          <text class="dim-label">{{item.label}}</text>
+          <view class="dim-bar">
+            <view class="dim-bar-inner" style="width: {{item.pct}}%"></view>
+          </view>
+          <text class="dim-score">{{item.score}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{items.length > 0}}" class="card">
+        <text class="card-title">待改进项</text>
+        <view wx:for="{{items}}" wx:key="i" class="item">
+          <view class="item-head">
+            <text class="item-section">{{item.section}}</text>
+          </view>
+          <view wx:if="{{item.problem}}" class="line">
+            <text class="line-label">问题</text>
+            <text class="line-text">{{item.problem}}</text>
+          </view>
+          <view wx:if="{{item.suggested}}" class="line">
+            <text class="line-label">建议</text>
+            <text class="line-text line-new">{{item.suggested}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- ===== 岗位比对（keyword）：关键词 ===== -->
+    <block wx:elif="{{biz === 'keyword'}}">
+      <view wx:if="{{coveredKeywords.length > 0}}" class="card">
+        <text class="card-title">已覆盖的关键词</text>
+        <view class="keywords">
+          <text wx:for="{{coveredKeywords}}" wx:key="*this" class="keyword">{{item}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{missingKeywords.length > 0}}" class="card">
+        <text class="card-title">缺失的关键词</text>
+        <view class="keywords">
+          <text wx:for="{{missingKeywords}}" wx:key="*this" class="keyword keyword-missing">{{item}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- ===== 面试练习（practice）：各轮自评 ===== -->
+    <block wx:elif="{{biz === 'practice'}}">
+      <view wx:if="{{rounds.length > 0}}" class="card">
+        <text class="card-title">练习轮次</text>
+        <view wx:for="{{rounds}}" wx:key="i" class="item">
+          <view class="item-head">
+            <text class="item-section">{{index + 1}}. {{item.title}}</text>
+            <text class="dim-score">{{item.score}}/5</text>
+          </view>
+          <view wx:if="{{item.note}}" class="line">
+            <text class="line-text">{{item.note}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 输入原文：默认折叠，点开才渲染全文 -->
+    <view wx:if="{{hasSource}}" class="card">
+      <view wx:for="{{sources}}" wx:key="label" class="source">
+        <view class="source-head" data-index="{{index}}" bindtap="onToggleSource">
+          <text class="card-title source-title">{{item.label}}</text>
+          <text class="source-toggle">{{item.open ? '收起' : '展开'}}</text>
+        </view>
+        <text wx:if="{{!item.open}}" class="source-brief">{{item.brief}}</text>
+        <text wx:else class="source-full">{{item.text}}</text>
+      </view>
+    </view>
+
+    <view class="actions">
+      <button class="btn-primary" bindtap="onCopy">复制全部结果</button>
+      <button class="btn-ghost btn-delete" bindtap="onDelete">删除这条记录</button>
+    </view>
+  </block>
+</view>

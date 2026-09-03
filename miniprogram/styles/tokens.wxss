@@ -1,0 +1,100 @@
+/**
+ * 设计变量（P2-2 视觉统一）。
+ *
+ * ## 为什么需要这个文件
+ *
+ * 视觉统一前的实况：主色有 3 种（#4f6ef7 / #4f7cff / #2f6fed），
+ * 次要文字色 5 种，深色文字 5 种，分隔线 3 种——都是各页面各写各的硬编码。
+ * 跨页翻动时同一个「次要说明文字」深浅不一，是大赛「体验感/完整度」的扣分项。
+ *
+ * 收敛原则：**先定语义，再定值**。变量名描述用途（--color-text-secondary）
+ * 而非外观（--color-gray-500），这样改主题只改这一处，不会把语义改坏。
+ *
+ * ## 用法
+ *
+ * 本文件由 app.wxss 全局 @import，变量定义在 `page` 选择器上，
+ * 所有页面的元素都能通过 var() 继承，页面 wxss 无需再 @import。
+ *
+ * ## 注意
+ *
+ * WXSS 的 var() 不支持在部分旧基础库上使用，本项目基线 3.15.1，支持良好。
+ * 新增变量请同步更新本注释下方的分组，保持语义清晰。
+ */
+
+page {
+  /* ---- 主色 ---- */
+  --color-primary: #4f6ef7;
+  --color-primary-dark: #2f6fed;
+  --color-primary-gradient-end: #6a5cff;
+  --color-primary-subtle: #eef2ff;
+  --color-primary-disabled: #b9c2f5;
+
+  /* ---- TDesign 桥接：vendor 组件（按钮/标签/页签）主色对齐品牌色 ---- */
+  /* 取值与上方主色组一一对应，调整主题时两处同步修改 */
+  --td-brand-color: #4f6ef7;
+  --td-brand-color-active: #2f6fed;
+  --td-brand-color-light: #eef2ff;
+  --td-brand-color-light-active: #dfe6ff;
+  --td-brand-color-disabled: #b9c2f5;
+  --td-button-border-radius: 16rpx; /* 按钮圆角对齐全局 */
+
+  /* ---- 文字层级 ---- */
+  --color-text: #1f2329;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-text-quaternary: #c4c8ce;
+
+  /* ---- 背景与表面 ---- */
+  --color-bg-page: #f6f7fb;
+  --color-surface: #ffffff;
+
+  --color-primary-border: #c7d4ff;
+
+  /* ---- 边框与分隔线 ---- */
+  --color-border: #f0f2f5;
+  --color-border-strong: #e5e7eb;
+  --color-border-placeholder: #c0c6d0;
+
+  /* ---- 状态色 ---- */
+  /* 取值取自改造前出现频次最高的一组，保证多数页面视觉不变 */
+  --color-error: #d93025;
+  --color-error-subtle: #fdecea;
+  --color-error-border: #f3c1c3;
+  --color-warning: #b06a00;
+  --color-warning-subtle: #fff4e5;
+  --color-warning-bright: #f59e0b; /* 评分徽章底色，比文字色亮 */
+  --color-warning-border: #f5d9a8;
+  --color-success: #0f9d58;
+  --color-success-subtle: #e7f8f0;
+
+  /* ---- 金色（Offer 对比首选徽章） ---- */
+  --color-gold: #f6c453;
+  --color-gold-dark: #f0a13a;
+  --color-gold-shadow: rgba(240, 161, 58, 0.3); /* 首选徽章品牌投影 */
+
+  /* ---- 圆角 ---- */
+  --radius-card: 20rpx;
+  --radius-btn: 16rpx;
+  --radius-chip: 10rpx;
+  --radius-head: 36rpx; /* 渐变页头底部大圆角，与首页一致 */
+
+  /* ---- 间距 ---- */
+  --space-page: 24rpx;
+  --space-card: 32rpx;
+
+  /* ---- 阴影 ---- */
+  --shadow-card: 0 4rpx 16rpx rgba(31, 35, 41, 0.04);
+  --shadow-cta: 0 6rpx 16rpx rgba(79, 110, 247, 0.24); /* 主按钮品牌投影 */
+  --shadow-fab: 0 10rpx 24rpx rgba(79, 110, 247, 0.4); /* 悬浮操作按钮 */
+
+  /* ---- 动效（P2-2 模块 C） ---- */
+  /* 时长偏短：结果是逐段浮现的，动效一长就会拖慢「内容已到手」的感知 */
+  --duration-fast: 160ms;
+  --duration-base: 320ms;
+  --duration-slow: 480ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-skeleton: 8rpx;
+  /* 卡片入场错开步长固定 60ms，写死在 app.wxss——calc(var() * n) 在
+     部分低端安卓 WebView 兼容性未验证，动效失效会让卡片一直透明 */
+}

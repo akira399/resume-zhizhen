@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/interview/index",
+    "pages/kanban/index",
+    "pages/kanban/edit/index",
+    "pages/profile/index"
+  ],
+  "subpackages": [
+    {
+      "root": "package-tools",
+      "name": "tools",
+      "pages": [
+        "pages/checklist/index",
+        "pages/keyword/index",
+        "pages/practice/index",
+        "pages/stats/index",
+        "pages/offer-compare/index",
+        "pages/review/index",
+        "pages/review/edit/index",
+        "pages/timeline/index",
+        "pages/todo/index",
+        "pages/career/index",
+        "pages/intro/index",
+        "pages/parse/index",
+        "pages/practice-mode/index",
+        "pages/learning/index",
+        "pages/backup/index",
+        "pages/history/index",
+        "pages/history-detail/index",
+        "pages/questions/index"
+      ]
+    }
+  ],
+  "tabBar": {
+    "color": "#8a8f99",
+    "selectedColor": "#4f6ef7",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页",
+        "iconPath": "assets/tabbar/home.png",
+        "selectedIconPath": "assets/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/interview/index",
+        "text": "面试",
+        "iconPath": "assets/tabbar/interview.png",
+        "selectedIconPath": "assets/tabbar/interview-active.png"
+      },
+      {
+        "pagePath": "pages/kanban/index",
+        "text": "看板",
+        "iconPath": "assets/tabbar/kanban.png",
+        "selectedIconPath": "assets/tabbar/kanban-active.png"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的",
+        "iconPath": "assets/tabbar/profile.png",
+        "selectedIconPath": "assets/tabbar/profile-active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f7f8fa",
+    "navigationBarTitleText": "简历智诊",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 60000
+  }
+}

@@ -1,0 +1,107 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">刷题模式</text>
+    <text class="hero-mini-sub">顺序 / 随机 / 错题重刷，正确率越刷越高</text>
+  </view>
+
+  <!-- 统计 -->
+  <view wx:if="{{stats}}" class="card stats-card">
+    <view class="stats-grid">
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.answered}}</text>
+        <text class="stat-label">已刷题</text>
+      </view>
+      <view class="stat-cell">
+        <text class="stat-num">{{stats.rate}}%</text>
+        <text class="stat-label">正确率</text>
+      </view>
+      <view class="stat-cell">
+        <text class="stat-num {{stats.wrongCount ? 'stat-wrong' : ''}}">{{stats.wrongCount}}</text>
+        <text class="stat-label">错题</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 设置 -->
+  <block wx:if="{{phase === 'setup'}}">
+    <view class="card">
+      <text class="section-title">刷法</text>
+      <view class="mode-row">
+        <text
+          wx:for="{{modes}}"
+          wx:key="key"
+          class="mode-chip {{mode === item.key ? 'mode-on' : ''}}"
+          data-key="{{item.key}}"
+          bindtap="onMode"
+        >{{item.label}}</text>
+      </view>
+    </view>
+
+    <view class="card">
+      <text class="section-title">题量</text>
+      <view class="count-row">
+        <text
+          wx:for="{{counts}}"
+          wx:key="*this"
+          class="count-chip {{count === item ? 'count-on' : ''}}"
+          data-key="{{item}}"
+          bindtap="onCount"
+        >{{item}} 题</text>
+      </view>
+      <button class="btn-primary start-btn" bindtap="onStart">开始刷题</button>
+    </view>
+  </block>
+
+  <!-- 刷题中 -->
+  <block wx:if="{{phase === 'quiz'}}">
+    <view class="card quiz-card">
+      <view class="quiz-head">
+        <text class="quiz-progress">{{index + 1}} / {{quiz.length}}</text>
+        <text class="quiz-mode-label">{{modeLabel}}</text>
+      </view>
+      <text class="quiz-question">{{quiz[index].q}}</text>
+
+      <!-- 第一步：先写自己的回答 -->
+      <block wx:if="{{!answerVisible}}">
+        <textarea
+          class="answer-area"
+          value="{{userAnswer}}"
+          placeholder="在下方写下你的回答要点…&#10;先自己组织语言，再看参考答案对照"
+          maxlength="2000"
+          bindinput="onAnswerInput"
+        />
+        <button class="btn-primary compare-btn" bindtap="onShowAnswer">写完，对照参考答案</button>
+      </block>
+
+      <!-- 第二步：我的回答 vs 参考答案，然后自判对错 -->
+      <block wx:else>
+        <view wx:if="{{hasAnswer}}" class="mine-box">
+          <text class="mine-label">我的回答</text>
+          <text class="mine-text" user-select>{{userAnswer}}</text>
+        </view>
+        <view class="answer-box">
+          <text class="answer-label">参考答案</text>
+          <text class="answer-text" user-select>{{quiz[index].a}}</text>
+        </view>
+        <view class="mark-tip">对照完了，这道题你答得怎么样？</view>
+        <view class="mark-row">
+          <button class="btn-ok" data-correct="1" bindtap="onMark">答对了</button>
+          <button class="btn-no" data-correct="0" bindtap="onMark">答错了</button>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <!-- 完成 -->
+  <block wx:if="{{phase === 'done'}}">
+    <view class="card done-card">
+      <text class="done-icon">🎉</text>
+      <text class="done-title">本组完成</text>
+      <text class="done-stats">本次刷了 {{quiz.length}} 题，累计正确率 {{stats.rate}}%（错题 {{stats.wrongCount}} 个）</text>
+      <text class="done-tip">答错的题已进入错题池，下次选「错题重刷」再练一遍</text>
+      <button class="btn-primary done-btn" bindtap="onRestart">再刷一组</button>
+    </view>
+  </block>
+</view>

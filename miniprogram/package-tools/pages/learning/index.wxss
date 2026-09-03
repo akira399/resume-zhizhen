@@ -1,0 +1,129 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 方向 tabs */
+.dir-tabs {
+  white-space: nowrap;
+  margin: 0 var(--space-page) 24rpx;
+}
+
+.dir-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 16rpx 28rpx;
+  margin-right: 16rpx;
+  border-radius: var(--radius-btn);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.dir-icon {
+  font-size: 30rpx;
+  margin-right: 8rpx;
+}
+
+.dir-name {
+  font-size: 26rpx;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.dir-done {
+  margin-left: 12rpx;
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+  font-family: monospace;
+}
+
+.dir-on {
+  background: var(--color-primary);
+  box-shadow: 0 6rpx 16rpx var(--shadow-cta);
+}
+
+.dir-on .dir-name {
+  color: var(--color-surface);
+}
+
+.dir-on .dir-done {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 方向头 */
+.path-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx var(--space-page) 16rpx;
+}
+
+.path-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.path-reset {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* 阶段卡 */
+.stage-card {
+  margin-bottom: 20rpx;
+}
+
+.stage-head {
+  display: flex;
+  align-items: center;
+}
+
+.stage-done .stage-label {
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.stage-check {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--color-border-strong);
+  margin-right: 20rpx;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: var(--color-surface);
+  box-sizing: border-box;
+}
+
+.check-on {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.stage-label {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.stage-arrow {
+  font-size: 32rpx;
+  color: var(--color-text-tertiary);
+}
+
+.stage-items {
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid var(--color-border);
+}
+
+.stage-item {
+  display: block;
+  font-size: 26rpx;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}

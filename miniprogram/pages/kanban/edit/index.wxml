@@ -1,0 +1,107 @@
+<view class="edit-page">
+  <!-- 编辑态拉取失败：隐藏空壳表单，给重试入口（P2-1） -->
+  <view wx:if="{{loadErr}}" class="form-card load-error">
+    <text class="load-err-icon">⚠️</text>
+    <text class="load-err-text">{{loadErr}}</text>
+    <button class="retry-btn" bindtap="onRetryLoad">重新加载</button>
+  </view>
+
+  <view wx:else class="form-card">
+    <view class="field">
+      <text class="label">公司 <text class="req">*</text></text>
+      <input class="input" value="{{form.company}}" placeholder="如：字节跳动" maxlength="40" bindinput="onCompany" />
+    </view>
+
+    <view class="field">
+      <text class="label">岗位 <text class="req">*</text></text>
+      <input class="input" value="{{form.position}}" placeholder="如：后端开发工程师" maxlength="40" bindinput="onPosition" />
+    </view>
+
+    <view class="field field-row">
+      <text class="label">当前状态</text>
+      <picker mode="selector" range="{{statusLabels}}" value="{{statusIndex}}" bindchange="onStatus">
+        <view class="picker-value">{{statusLabels[statusIndex]}} ▾</view>
+      </picker>
+    </view>
+
+    <view class="field field-row">
+      <text class="label">来源渠道</text>
+      <picker mode="selector" range="{{sourceOptions}}" value="{{sourceIndex}}" bindchange="onSource">
+        <view class="picker-value">{{sourceOptions[sourceIndex]}} ▾</view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="label">简历版本</text>
+      <input class="input" value="{{form.resumeVersion}}" placeholder="如：V3-量化实习版" maxlength="30" bindinput="onResumeVersion" />
+      <view wx:if="{{versionHints.length > 0}}" class="hints">
+        <text
+          wx:for="{{versionHints}}"
+          wx:key="*this"
+          class="hint-chip"
+          data-v="{{item}}"
+          bindtap="onPickVersion"
+        >{{item}}</text>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="label">备注</text>
+      <textarea
+        class="textarea"
+        value="{{form.note}}"
+        placeholder="JD 要点、内推人、薪资范围等（可选）"
+        maxlength="200"
+        auto-height
+        bindinput="onNote"
+      />
+    </view>
+
+    <view class="field">
+      <text class="label">标签</text>
+      <input
+        class="input"
+        value="{{form.tags}}"
+        placeholder="多个标签用逗号分隔，如：秋招、内推、梦厂"
+        maxlength="60"
+        bindinput="onTags"
+      />
+    </view>
+  </view>
+
+  <!-- 日程 -->
+  <view class="form-card">
+    <view class="field field-row">
+      <text class="label">面试 / 笔试日程</text>
+      <switch checked="{{form.eventEnabled}}" color="#4f6ef7" bindchange="onEventToggle" />
+    </view>
+
+    <block wx:if="{{form.eventEnabled}}">
+      <view class="field field-row">
+        <text class="label">类型</text>
+        <picker mode="selector" range="{{eventTypeLabels}}" value="{{eventTypeIndex}}" bindchange="onEventType">
+          <view class="picker-value">{{eventTypeLabels[eventTypeIndex]}} ▾</view>
+        </picker>
+      </view>
+
+      <view class="field field-row">
+        <text class="label">日期</text>
+        <picker mode="date" start="2024-01-01" end="2030-12-31" value="{{form.eventDate}}" bindchange="onEventDate">
+          <view class="picker-value">{{form.eventDate || '请选择日期'}} ▾</view>
+        </picker>
+      </view>
+
+      <view class="field field-row">
+        <text class="label">时间</text>
+        <picker mode="time" value="{{form.eventTime}}" bindchange="onEventTime">
+          <view class="picker-value">{{form.eventTime || '10:00'}} ▾</view>
+        </picker>
+      </view>
+    </block>
+  </view>
+
+  <view class="actions">
+    <button class="btn-primary" loading="{{saving}}" bindtap="onSave">{{isEdit ? '保存修改' : '添加记录'}}</button>
+    <button wx:if="{{isEdit}}" class="btn-danger" loading="{{deleting}}" bindtap="onDelete">删除记录</button>
+  </view>
+</view>

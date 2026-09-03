@@ -1,0 +1,265 @@
+/* 面试题库速查页（F10） */
+.qbank {
+  min-height: 100vh;
+  padding: 24rpx 0 calc(60rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-page);
+}
+
+/* ---- 分类 tab ---- */
+.cat-bar {
+  white-space: nowrap;
+}
+
+.cat-bar-inner {
+  display: inline-flex;
+  gap: 16rpx;
+  padding: 0 24rpx;
+}
+
+.cat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 14rpx 24rpx;
+  border-radius: 999rpx;
+  background: var(--color-surface);
+  border: 2rpx solid transparent;
+  transition: all 0.2s var(--ease-out);
+}
+
+.cat-item-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.cat-item-active .cat-name,
+.cat-item-active .cat-count {
+  color: var(--color-surface);
+}
+
+.cat-icon {
+  font-size: 26rpx;
+}
+
+.cat-name {
+  font-size: 26rpx;
+  color: var(--color-text);
+}
+
+.cat-count {
+  font-size: 20rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* ---- 搜索 ---- */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin: 20rpx 24rpx 0;
+  padding: 0 24rpx;
+  height: 76rpx;
+  border-radius: 999rpx;
+  background: var(--color-surface);
+}
+
+.search-icon {
+  font-size: 26rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 27rpx;
+  color: var(--color-text);
+}
+
+.search-placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.search-clear {
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+.search-meta {
+  padding: 20rpx 32rpx 0;
+}
+
+.search-meta-text {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* ---- 题目列表 ---- */
+.q-list {
+  padding: 20rpx 24rpx 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.q-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 26rpx 28rpx;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s var(--ease-out);
+}
+
+.q-card-open {
+  box-shadow: var(--shadow-card), 0 0 0 2rpx var(--color-primary);
+}
+
+.q-head {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.q-title {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.q-arrow {
+  font-size: 28rpx;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.q-cat {
+  margin-top: 12rpx;
+}
+
+.q-cat-tag {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+  background: var(--color-bg-page);
+  font-size: 20rpx;
+  color: var(--color-text-tertiary);
+}
+
+.q-body {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid var(--color-bg-page);
+}
+
+.q-answer {
+  display: block;
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  white-space: pre-line;
+}
+
+/* ---- 空态 ---- */
+.q-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 60rpx 0;
+}
+
+.q-empty-icon {
+  font-size: 72rpx;
+  margin-bottom: 20rpx;
+}
+
+.q-empty-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 10rpx;
+}
+
+.q-empty-desc {
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+}
+
+/* ---- M5 进度条 + 收藏筛选 ---- */
+
+.prog-row {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 24rpx 0;
+}
+
+.prog-track {
+  flex: 1;
+  height: 14rpx;
+  border-radius: 7rpx;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.prog-inner {
+  height: 100%;
+  border-radius: 7rpx;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-gradient-end));
+}
+
+.prog-text {
+  flex: none;
+  margin-left: 16rpx;
+  font-size: 24rpx;
+  color: var(--color-text-secondary);
+  width: 110rpx;
+}
+
+.prog-fav {
+  flex: none;
+  margin-left: 12rpx;
+  font-size: 24rpx;
+  color: var(--color-text-tertiary);
+  padding: 6rpx 16rpx;
+  border-radius: 24rpx;
+  background: var(--color-bg-page);
+}
+
+.prog-fav-active {
+  color: var(--color-warning-bright);
+  background: var(--color-warning-subtle);
+}
+
+/* ---- M5 题目操作按钮 ---- */
+
+.q-actions {
+  display: flex;
+  align-items: center;
+}
+
+.q-btn {
+  font-size: 22rpx;
+  color: var(--color-text-tertiary);
+  background: var(--color-bg-page);
+  border-radius: 20rpx;
+  padding: 6rpx 16rpx;
+  margin-right: 16rpx;
+}
+
+.q-btn-done {
+  color: var(--color-success);
+  background: var(--color-success-subtle);
+}
+
+.q-star {
+  font-size: 34rpx;
+  color: var(--color-border-strong);
+  margin-right: 16rpx;
+  line-height: 1;
+}
+
+.q-star-on {
+  color: var(--color-warning-bright);
+}

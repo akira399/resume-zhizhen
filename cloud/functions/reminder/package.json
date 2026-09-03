@@ -1,0 +1,9 @@
+{
+  "name": "reminder",
+  "version": "0.1.0",
+  "description": "定时扫描面试日程并发送订阅消息提醒（F8）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

@@ -1,0 +1,49 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">求职 Checklist</text>
+    <text class="hero-mini-sub">秋招全流程清单，一步步打勾，心里有数</text>
+  </view>
+
+  <!-- 总进度 -->
+  <view class="card progress-card">
+    <view class="progress-head">
+      <text class="progress-title">总进度</text>
+      <text class="progress-num">{{done}} / {{total}}</text>
+    </view>
+    <view class="bar-track">
+      <view class="bar-fill" style="width: {{pct}}%"></view>
+    </view>
+    <view class="progress-foot">
+      <text class="progress-hint">已完成 {{pct}}% · 完成全部 5 个阶段，求职不掉链</text>
+      <text class="reset-btn" bindtap="onReset">重置</text>
+    </view>
+  </view>
+
+  <!-- 阶段清单 -->
+  <view class="stage-card" wx:for="{{stages}}" wx:key="key">
+    <view class="stage-head">
+      <text class="stage-icon">{{item.icon}}</text>
+      <view class="stage-info">
+        <text class="stage-label">{{item.label}}</text>
+        <view class="stage-bar-track">
+          <view class="stage-bar-fill" style="width: {{item.total ? (item.done / item.total) * 100 : 0}}%"></view>
+        </view>
+      </view>
+      <text class="stage-num">{{item.done}}/{{item.total}}</text>
+    </view>
+
+    <view
+      class="check-item {{it.checked ? 'check-on' : ''}}"
+      wx:for="{{item.items}}"
+      wx:for-item="it"
+      wx:key="key"
+      data-key="{{it.key}}"
+      bindtap="onToggle"
+    >
+      <view class="check-box {{it.checked ? 'box-on' : ''}}">{{it.checked ? '✓' : ''}}</view>
+      <text class="check-text">{{it.text}}</text>
+    </view>
+  </view>
+</view>

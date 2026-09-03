@@ -1,0 +1,15 @@
+TDesign Mini Program vendor 产物（由 scripts/build-vendor.js 生成，勿手改）
+
+来源包   : tdesign-miniprogram@1.16.0
+外部依赖 : tslib（内联）, marked（内联）, tinycolor2/esm/tinycolor（内联）, dayjs（内联）
+生成日期 : 2026-08-31
+转译     : esbuild，ESM → CommonJS，target es2018
+组件入口 : button tag loading empty dialog chat-list chat-message chat-sender chat-content chat-loading chat-thinking cell tabs sticky skeleton
+目录闭包 : attachments badge button cell chat-content chat-list chat-loading chat-markdown chat-message chat-sender chat-thinking common config-provider dialog empty icon image loading locale mixins overlay popup skeleton sticky tabs tag
+
+为什么 vendor 化：TDesign 的 dist 是 ESM，上传管线不接受；官方方案要求
+开 IDE「ES6 转 ES5」，但本项目 HARD OFF 二次编译（HANDOFF 约束 4）。
+故开发期转译、产物入库，包内保持无构建步骤。决策：docs/10 §2.4.2。
+
+升级 / 加组件：改 ENTRIES 后运行 node scripts/build-vendor.js。
+定制样式用 t-class 或 CSS 变量，不要改这里的文件。

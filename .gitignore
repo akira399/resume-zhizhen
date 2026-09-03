@@ -1,0 +1,30 @@
+# 依赖与密钥不入库
+node_modules/
+dist/
+_setup/
+
+# 本地密钥（严禁提交/分享）
+config/secrets.local.json
+.env
+.env.local
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 构建产物与依赖
+node_modules/
+*.log
+.vitest/
+.swc/
+
+# 云函数构建产物（源码在 main.js 与 lib/）
+cloud/functions/*/index.js
+
+# IDE 本地设置（含个人基础库选择等，不入库）
+project.private.config.json
+
+# 本地生成的预览二维码（有时效性，不入库）
+preview-qr.png
+
+.preview-qr.png

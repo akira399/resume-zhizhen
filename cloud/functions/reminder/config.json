@@ -1,0 +1,15 @@
+{
+  "timeout": 20,
+  "permissions": {
+    "openapi": [
+      "subscribeMessage.send"
+    ]
+  },
+  "triggers": [
+    {
+      "name": "interviewReminder",
+      "type": "timer",
+      "config": "0 0 * * * * *"
+    }
+  ]
+}

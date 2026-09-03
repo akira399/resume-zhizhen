@@ -1,0 +1,110 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">简历自查</text>
+    <text class="hero-mini-sub">5 大维度 24 项检查，逐项对照，看看差在哪</text>
+  </view>
+
+  <!-- 输入区 -->
+  <view class="card">
+    <view class="section-head-row">
+      <text class="section-title">粘贴你的简历</text>
+      <view class="import-btn {{importing ? 'import-btn-disabled' : ''}}" bindtap="onImportResume">
+        {{importing ? '解析中…' : '📎 从文件导入'}}
+      </view>
+    </view>
+    <textarea
+      class="resume-input"
+      value="{{resumeText}}"
+      placeholder="从 Word / 网页复制简历正文粘贴到这里（自动去除格式）…"
+      maxlength="5000"
+      bindinput="onInput"
+    />
+    <view class="import-hint">支持 PDF / Word(.docx) / TXT。文件需先发到「文件传输助手」再导入。</view>
+
+    <!-- 引导第一步：明确的主行动按钮 -->
+    <button wx:if="{{!started}}" class="btn-primary start-btn" bindtap="onStart">开始自查</button>
+    <view wx:else class="started-tip">
+      <text class="tip-main">✓ 自动预检完成：判定 {{autoDetected}} 项 · {{autoConfirm}} 项待确认</text>
+      <text class="tip-sub">绿色 ✓ 已自动判定做到，红色 ✗ 检测到问题，无标记项请对照简历确认</text>
+    </view>
+
+    <view class="sample-row">
+      <text class="sample-tip">没有简历？用示例试试：</text>
+      <view class="sample-chips">
+        <text
+          wx:for="{{samples}}"
+          wx:key="key"
+          class="sample-chip"
+          data-key="{{item.key}}"
+          bindtap="onUseSample"
+        >{{item.label}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 检查区：按维度分区 -->
+  <view id="checkArea" class="check-area {{started ? '' : 'check-locked'}}">
+  <view wx:for="{{dimensions}}" wx:key="key" class="card">
+    <view class="dim-head">
+      <text class="section-title dim-title">{{item.label}}</text>
+      <text class="dim-weight">权重 {{item.weight}}%</text>
+    </view>
+    <view
+      wx:for="{{item.items}}"
+      wx:for-item="check"
+      wx:key="key"
+      class="check-item {{answers[check.key] === 'done' ? 'check-done' : ''}} {{answers[check.key] === 'na' ? 'check-na' : ''}}"
+      data-key="{{check.key}}"
+      bindtap="onToggle"
+    >
+      <text class="check-text">{{check.text}}</text>
+      <view class="check-right">
+        <text wx:if="{{auto[check.key]}}" class="auto-badge auto-{{auto[check.key]}}">
+          {{auto[check.key] === 'done' ? '✓ 自动判定' : '✗ 检测到'}}
+        </text>
+        <text class="check-status check-status-{{answers[check.key] || 'pending'}}">
+          {{statusLabel[answers[check.key] || 'pending']}}
+        </text>
+      </view>
+    </view>
+  </view>
+  </view>
+
+  <!-- 结果区：生成后才展示，给用户明确的完成确认 -->
+  <view wx:if="{{submitted}}" id="resultArea" class="card result-card">
+    <view class="result-head">
+      <text class="result-label">{{score === null ? '待确认后才能出分' : '当前得分'}}</text>
+      <text class="result-score {{score === null ? 'score-pending' : ''}}">{{score === null ? '—' : score}}<text class="result-unit">{{score === null ? '' : '/100'}}</text></text>
+    </view>
+    <text class="result-summary">{{summary}}</text>
+    <view wx:if="{{pendingCount > 0}}" class="pending-hint">还有 {{pendingCount}} 项标着「待确认」未纳入评分，回到清单补确认后分数会更新</view>
+    <view class="result-counts">
+      <text class="count-chip count-done">已做到 {{doneCount}}</text>
+      <text class="count-chip count-todo">待改进 {{todoCount}}</text>
+    </view>
+
+    <view wx:if="{{notes.length > 0}}" class="notes">
+      <text class="notes-title">优先改进</text>
+      <view wx:for="{{notes}}" wx:key="*this" class="note-line">
+        <text class="note-index">{{index + 1}}</text>
+        <text class="note-text">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="actions">
+    <block wx:if="{{!started}}">
+      <button class="btn-primary action-btn" bindtap="onStart">开始自查</button>
+    </block>
+    <block wx:elif="{{!submitted}}">
+      <button class="btn-primary action-btn" bindtap="onSubmit">生成自查结果</button>
+      <button class="btn-ghost action-btn" bindtap="onReset">重填简历</button>
+    </block>
+    <block wx:else>
+      <button class="btn-primary action-btn" bindtap="onSave">完成并保存记录</button>
+      <button class="btn-ghost action-btn" bindtap="onReset">重新自查</button>
+    </block>
+  </view>
+</view>

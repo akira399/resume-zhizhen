@@ -1,0 +1,26 @@
+{
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectName": "interview-mate",
+  "miniprogramRoot": "miniprogram/",
+  "cloudfunctionRoot": "cloud/functions/",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false,
+    "condition": true,
+    "swc": false,
+    "swcSetting": {
+      "disableSWC": true
+    },
+    "disableSWC": true
+  },
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  },
+  "libVersion": "3.15.1"
+}

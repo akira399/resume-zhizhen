@@ -1,0 +1,79 @@
+<view class="page">
+  <view class="hero-mini">
+    <view class="hero-mini-deco hero-mini-deco-a" />
+    <view class="hero-mini-deco hero-mini-deco-b" />
+    <text class="hero-mini-title">{{id ? '编辑复盘' : '写复盘'}}</text>
+    <text class="hero-mini-sub">趁热打铁，10 分钟把这次面试记下来</text>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="card form-card">
+    <text class="card-title">基本信息</text>
+
+    <view class="field">
+      <text class="field-label">公司</text>
+      <view class="company-pick">
+        <input class="input" value="{{company}}" placeholder="面试的公司" maxlength="40" bindinput="onCompanyInput" />
+        <picker mode="selector" range="{{companyList}}" bindchange="onCompanyPicker">
+          <view class="pick-btn">从投递记录选</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">岗位</text>
+      <input class="input" value="{{position}}" placeholder="面试的岗位" maxlength="40" bindinput="onPositionInput" />
+    </view>
+
+    <view class="field">
+      <text class="field-label">轮次</text>
+      <picker mode="selector" range="{{rounds}}" value="{{roundIndex}}" bindchange="onRoundPicker">
+        <view class="picker-value">{{rounds[roundIndex]}}<text class="picker-arrow">›</text></view>
+      </picker>
+    </view>
+
+    <view class="field">
+      <text class="field-label">整体表现</text>
+      <view class="rate-row">
+        <text
+          class="rate-star {{i <= rating ? 'rate-on' : ''}}"
+          wx:for="{{[1,2,3,4,5]}}"
+          wx:for-item="i"
+          wx:key="*this"
+          data-rating="{{i}}"
+          bindtap="onRate"
+        >★</text>
+        <text class="rate-hint">{{rating ? (rating >= 4 ? '很稳，保持' : rating === 3 ? '中规中矩' : '需要加练') : '点击评分'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 复盘内容 -->
+  <view class="card form-card">
+    <text class="card-title">复盘内容</text>
+
+    <view class="field">
+      <text class="field-label">被问了什么</text>
+      <textarea class="textarea" value="{{questions}}" placeholder="每行一条，或用逗号分隔&#10;例：介绍项目难点&#10;手撕 LRU 缓存" maxlength="1000" bindinput="onQuestionsInput" />
+      <text class="field-tip">会按次数统计「被问最多的问题」</text>
+    </view>
+
+    <view class="field">
+      <text class="field-label">哪里没答好</text>
+      <textarea class="textarea" value="{{fails}}" placeholder="每行一条&#10;例：项目深挖没讲清链路" maxlength="1000" bindinput="onFailsInput" />
+      <text class="field-tip">会按次数统计「最需改进」</text>
+    </view>
+
+    <view class="field">
+      <text class="field-label">答得好的地方</text>
+      <textarea class="textarea" value="{{wins}}" placeholder="每行一条&#10;例：STAR 讲项目很清楚" maxlength="1000" bindinput="onWinsInput" />
+    </view>
+
+    <view class="field">
+      <text class="field-label">下次改进（备注）</text>
+      <textarea class="textarea" value="{{notes}}" placeholder="一句话提醒下次面试的自己" maxlength="300" bindinput="onNotesInput" />
+    </view>
+  </view>
+
+  <button class="btn-primary save-btn" loading="{{busy}}" bindtap="onSave">保存复盘</button>
+</view>
